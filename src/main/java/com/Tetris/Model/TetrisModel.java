@@ -1,10 +1,8 @@
 package com.Tetris.Model;
 
-import com.Tetris.Model.Tetriminoes.*;
-
 public class TetrisModel {
     public Tetrimino[][] matrix = new Tetrimino[10][40];
-    public FallingPiece current = new I();
+    public FallingPiece current;
     public int level;
     public int points;
     private Tetrimino swap;
@@ -12,7 +10,7 @@ public class TetrisModel {
     private RandomPieceGenerator generator = new RandomPieceGenerator();
 
     public TetrisModel() {
-
+        current = generator.nextPiece();
     }
 
     private void lockPiece() {
@@ -77,7 +75,11 @@ public class TetrisModel {
     }
 
     public void dropDown() {
-
+        while (!current.colliding(matrix)) {
+            current.move(0, -1);
+        }
+        current.move(0, 1);
+        tick();
     }
 
     private void moveMatrixDown(int y, int amount) {

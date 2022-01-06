@@ -39,8 +39,7 @@ public class App extends Application {
             } else if (key.getCode().equals(KeyCode.Z) ||
                     key.getCode().equals(KeyCode.CONTROL)) {
                 instance.rotateLeft();
-            } else if (key.getCode().equals(KeyCode.SPACE) ||
-                    key.getCode().equals(KeyCode.Z)) {
+            } else if (key.getCode().equals(KeyCode.SPACE)) {
                 instance.dropDown();
             }
         });

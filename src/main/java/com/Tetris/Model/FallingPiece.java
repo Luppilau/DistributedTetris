@@ -1,8 +1,5 @@
 package com.Tetris.Model;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,12 +8,12 @@ public class FallingPiece {
     protected Rotation rotation = Rotation.O;
 
     public FallingPiece() {
-        pos = new Pair(5, 22);
+        pos = new Pair(5, 21);
     }
 
     public void rotateRight(Tetrimino[][] matrix) {
-        rotation = rotation.right();
         Pair initialPosition = Pair.add(pos, new Pair(0, 0));
+        rotation = rotation.right();
         for (Pair poses : getKickPosistionsRight()) {
             pos = Pair.add(poses, initialPosition);
             if (!colliding(matrix)) {
@@ -24,6 +21,7 @@ public class FallingPiece {
             }
         }
         pos = initialPosition;
+        rotation = rotation.left();
         return;
     }
 
@@ -37,6 +35,7 @@ public class FallingPiece {
             }
         }
         pos = initialPosition;
+        rotation = rotation.right();
         return;
     }
 
