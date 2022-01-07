@@ -25,50 +25,85 @@ public class TetrisInstance extends AnimationTimer {
                     return;
                 }
                 game.tick();
+                if (game.hasEnded) {
+                    System.out.println("ending game");
+                    frames = 100;
+                    state = State.EndAnimation;
+                    return;
+                }
                 canvas.render(game);
                 updateFramesToTick();
+                break;
             case HasEnded:
-
+                break;
             case ClearAnimation:
 
+                break;
             case EndAnimation:
+                if (frames > 0) {
+                    progressEndAnimation();
+                } else {
+                    state = State.HasEnded;
+                }
+                break;
         }
 
     }
 
     public void rotateRight() {
-        game.rotateRight();
-        canvas.render(game);
+        if (!game.hasEnded) {
+            game.rotateRight();
+            canvas.render(game);
+        }
     }
 
     public void rotateLeft() {
-        game.rotateLeft();
-        canvas.render(game);
+        if (!game.hasEnded) {
+            game.rotateLeft();
+            canvas.render(game);
+        }
     }
 
     public void moveLeft() {
-        game.moveLeft();
-        canvas.render(game);
+        if (!game.hasEnded) {
+            game.moveLeft();
+            canvas.render(game);
+        }
     }
 
     public void moveRight() {
-        game.moveRight();
-        canvas.render(game);
+        if (!game.hasEnded) {
+            game.moveRight();
+            canvas.render(game);
+        }
     }
 
     public void moveDown() {
-        game.moveDown();
-        canvas.render(game);
+        if (!game.hasEnded) {
+            game.moveDown();
+            canvas.render(game);
+        }
     }
 
     public void dropDown() {
-        game.dropDown();
-        canvas.render(game);
+        if (!game.hasEnded) {
+            game.dropDown();
+            canvas.render(game);
+        }
     }
 
     public void swap() {
-        game.swap();
-        canvas.render(game);
+        if (!game.hasEnded) {
+            game.swap();
+            canvas.render(game);
+        }
+    }
+
+    private void progressEndAnimation() {
+        if (frames % 5 == 0) {
+            canvas.drawGrey(frames / 5 - 1);
+        }
+        frames--;
     }
 
     private void updateFramesToTick() {

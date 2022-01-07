@@ -86,4 +86,12 @@ public class TetrisCanvas extends Canvas {
                 squareUnit);
 
     }
+
+    public void drawGrey(int y) {
+        context.setStroke(Color.valueOf("#000000"));
+        context.setFill(Tetrimino.getColor(Tetrimino.TRASH));
+        for (int x = 0; x < 10; x++) {
+            paintSquareWithBorder(x, y);
+        }
+    }
 }

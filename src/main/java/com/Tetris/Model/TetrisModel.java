@@ -8,6 +8,8 @@ public class TetrisModel {
     public int level;
     public int lines;
     public int points;
+    public boolean hasEnded = false;
+
     private FallingPiece swap;
     private boolean hasSwapped = false;
 
@@ -20,13 +22,6 @@ public class TetrisModel {
         lines = 0;
     }
 
-    private void lockPiece() {
-        for (Pair sq : current.getSquares()) {
-            assert (!(sq.x < 0 || sq.x > 9 || sq.y < 0 || sq.y > 39));
-            matrix[sq.x][sq.y] = current.getType();
-        }
-        current = generator.nextPiece();
-    }
 
     public void tick() {
         // Fall piece
@@ -60,6 +55,17 @@ public class TetrisModel {
             level++;
         }
 
+    }
+
+    private void lockPiece() {
+        for (Pair sq : current.getSquares()) {
+            assert (!(sq.x < 0 || sq.x > 9 || sq.y < 0 || sq.y > 39));
+            matrix[sq.x][sq.y] = current.getType();
+            if (sq.y >= 21) {
+                hasEnded = true;
+            }
+        }
+        current = generator.nextPiece();
     }
 
     public void rotateRight() {
@@ -134,6 +140,18 @@ public class TetrisModel {
                     matrix[x][i] = null;
                 } else {
                     matrix[x][i] = matrix[x][i + amount];
+                }
+            }
+        }
+    }
+
+    public void moveMatrixUp(int amount) {
+        for (int i = 9; i >= 0; i--) {
+            for (int j = 39; j >= 0; j--) {
+                if (j-amount < 0) {
+                    matrix[i][j] = Tetrimino.TRASH;
+                } else {
+                    matrix[i][j] = matrix[i][j-amount];
                 }
             }
         }

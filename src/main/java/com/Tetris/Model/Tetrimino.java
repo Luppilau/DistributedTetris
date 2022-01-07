@@ -9,7 +9,8 @@ public enum Tetrimino {
     S, // Right Snake
     Z, // Left Snake
     J, // Left gun
-    L; // Right gun
+    L, // Right gun
+    TRASH;
 
     public static Color getColor(Tetrimino piece) {
         switch (piece) {
@@ -27,6 +28,8 @@ public enum Tetrimino {
                 return Color.valueOf("#5A65AD");
             case L:
                 return Color.valueOf("#EF7821");
+            case TRASH:
+                return Color.valueOf("#878b91");
             default:
                 return Color.valueOf("#FFFFFF");
         }
