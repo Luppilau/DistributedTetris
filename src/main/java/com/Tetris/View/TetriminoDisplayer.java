@@ -18,7 +18,7 @@ public class TetriminoDisplayer extends Canvas {
         super(squareUnit * WINDOWSIZE, squareUnit * WINDOWSIZE);
         this.squareUnit = squareUnit;
         context = getGraphicsContext2D();
-        context.setStroke(Color.valueOf("#FFFFFF"));
+        context.setStroke(Color.valueOf("#000000"));
     }
 
     public void render() {

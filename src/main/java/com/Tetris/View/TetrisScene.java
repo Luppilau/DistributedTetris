@@ -15,13 +15,15 @@ public class TetrisScene extends Scene {
         TetrisCanvas canvas = new TetrisCanvas();
         TetrisModel game = new TetrisModel();
         TetrisInstance instance = new TetrisInstance(canvas, game);
-        TetriminoDisplayer swap = new TetriminoDisplayer(canvas.squareUnit);
+        TetriminoDisplayer swapPiece = new TetriminoDisplayer(canvas.squareUnit);
+        // TetriminoDisplayer nextPiece = new TetriminoDisplayer(canvas.squareUnit);
         instance.start();
-        swap.render();
+        swapPiece.render();
+        // nextPiece.render();
 
         BorderPane layout = (BorderPane) root.lookup("#layout");
         layout.setCenter(canvas);
-        layout.setLeft(swap);
+        layout.setLeft(swapPiece);
 
         this.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent key) -> {
             if (key.getCode().equals(KeyCode.DOWN)) {
@@ -40,7 +42,7 @@ public class TetrisScene extends Scene {
                 instance.dropDown();
             } else if (key.getCode().equals(KeyCode.SHIFT)) {
                 instance.swap();
-                swap.setPiece(game.getSwap());
+                swapPiece.setPiece(game.getSwap());
             }
         });
     }

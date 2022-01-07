@@ -13,7 +13,7 @@
     xmlns:fx="http://javafx.com/fxml"
     fx:id="layout"
     stylesheets="@TetrisLayout.css"
-    prefHeight="1000"
+    prefHeight="500"
     >
     <!-- <top>
         <Text text="Top"/>
