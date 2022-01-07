@@ -9,30 +9,28 @@ import com.Tetris.Model.Tetrimino;
 import com.Tetris.Model.TetrisModel;
 
 public class TetrisCanvas extends Canvas {
-    public final double squareUnit;
+    private final double squareUnit;
     private static final double defaultHeight = 500;
     private static final double defaultWidth = 250;
 
     private GraphicsContext context;
 
     public TetrisCanvas() {
-        super();
-        setHeight(defaultHeight);
-        setWidth(defaultWidth);
+
         squareUnit = defaultWidth / 10;
-        context = getGraphicsContext2D();
+        context = canvas.getGraphicsContext2D();
     }
 
     public TetrisCanvas(double width, double height) {
-        super(width, height);
+        canvas = new Canvas(width, height);
         squareUnit = width / 10;
-        context = getGraphicsContext2D();
+        context = canvas.getGraphicsContext2D();
     }
 
     public void render(TetrisModel game) {
-        context.clearRect(0, 0, getWidth(), getHeight());
+        context.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         context.setFill(Color.valueOf("#A9A9A9"));
-        context.fillRect(0, 0, getWidth(), getHeight());
+        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         context.setStroke(Color.valueOf("#000000"));
         for (int x = 0; x < game.matrix.length; x++) {
             for (int y = 0; y < game.matrix[0].length; y++) {
@@ -62,7 +60,7 @@ public class TetrisCanvas extends Canvas {
     }
 
     private void paintSquareWithBorder(int x, int y) {
-        double corner2 = getHeight() - (squareUnit * (1 + y));
+        double corner2 = canvas.getHeight() - (squareUnit * (1 + y));
         double corner1 = squareUnit * x;
         context.fillRect(corner1,
                 corner2,
@@ -76,7 +74,7 @@ public class TetrisCanvas extends Canvas {
     }
 
     private void paintSquareGhost(int x, int y) {
-        double corner2 = getHeight() - (squareUnit * (1 + y));
+        double corner2 = canvas.getHeight() - (squareUnit * (1 + y));
         double corner1 = squareUnit * x;
         context.fillRect(corner1,
                 corner2,
@@ -88,4 +86,17 @@ public class TetrisCanvas extends Canvas {
                 squareUnit);
 
     }
+
+    public void drawGrey(int y) {
+        context.setStroke(Color.valueOf("#000000"));
+        context.setFill(Tetrimino.getColor(Tetrimino.TRASH));
+        for (int x = 0; x < 10; x++) {
+            paintSquareWithBorder(x, y);
+        }
+    }
+
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
 }
