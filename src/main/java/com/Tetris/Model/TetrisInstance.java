@@ -110,15 +110,14 @@ public class TetrisInstance extends AnimationTimer {
         final int delayBefore = 10;
         final int delayAfter = 10;
 
-
-        if (frames > clearAnimationFrames-delayBefore) {
+        if (frames > clearAnimationFrames - delayBefore) {
             frames--;
         } else if (frames < delayAfter) {
             frames--;
-        } else if ((frames-delayAfter) % 5 == 0) {
-            int currentFrame = (frames-delayAfter);
+        } else if ((frames - delayAfter) % 5 == 0) {
+            int currentFrame = (frames - delayAfter);
             for (int clearedLine : game.linesCleared) {
-                canvas.clearSquare(clearedLine,currentFrame/5);
+                canvas.clearSquare(clearedLine, currentFrame / 5);
             }
             frames--;
         } else {

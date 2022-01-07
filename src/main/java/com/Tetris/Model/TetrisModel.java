@@ -2,6 +2,8 @@ package com.Tetris.Model;
 
 import java.util.ArrayList;
 
+import javafx.scene.canvas.Canvas;
+
 import static java.lang.Math.max;
 
 public class TetrisModel {
@@ -16,15 +18,17 @@ public class TetrisModel {
     private FallingPiece swap;
     private FallingPiece nextPiece;
     private boolean hasSwapped = false;
+    private Canvas canvas;
 
     private RandomPieceGenerator generator = new RandomPieceGenerator();
 
-    public TetrisModel() {
+    public TetrisModel(Canvas canvas) {
         current = generator.nextPiece();
         nextPiece = generator.nextPiece();
         level = 0;
         points = 0;
         lines = 0;
+        this.canvas = canvas;
     }
 
     public void tick() {
@@ -73,6 +77,8 @@ public class TetrisModel {
 
         current = nextPiece;
         nextPiece = generator.nextPiece();
+        canvas.fireEvent(new CustomEvent(CustomEvent.NextPieceEvent));
+
     }
 
     public void rotateRight() {
