@@ -136,10 +136,10 @@ public class TetrisInstance extends AnimationTimer {
     private void updateFramesToTick() {
         final int[] times = { 48, 43, 38, 33, 28, 23, 18, 13, 8, 6, 5, 5, 5, 4, 4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2,
                 2, 2 };
-        if (game.level >= 29) {
+        if (game.level.getValue() >= 29) {
             frames = 1;
         } else {
-            frames = times[game.level];
+            frames = times[game.level.getValue()];
         }
     }
 
