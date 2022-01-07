@@ -7,6 +7,6 @@ module com.App {
 
     exports com.App;
     exports com.Tetris.Model;
-    exports com.Tetris.TetrisCanvas;
+    exports com.Tetris.View;
     exports com.Tetris.Net;
 }

@@ -1,4 +1,4 @@
-package com.Tetris.TetrisCanvas;
+package com.Tetris.View;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

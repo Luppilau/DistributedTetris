@@ -1,6 +1,6 @@
 package com.Tetris.Model;
 
-import com.Tetris.TetrisCanvas.TetrisCanvas;
+import com.Tetris.View.TetrisCanvas;
 
 import javafx.animation.AnimationTimer;
 
@@ -25,7 +25,7 @@ public class TetrisInstance extends AnimationTimer {
         canvas.render(game);
         updateFramesToTick();
         long end = System.currentTimeMillis();
-        System.out.println("Drew frame in: " + (end-start));
+        System.out.println("Drew frame in: " + (end - start));
     }
 
     public void rotateRight() {

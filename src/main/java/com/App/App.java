@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import com.Tetris.TetrisCanvas.TetrisScene;
+import com.Tetris.View.TetrisScene;
 
 /**
  * JavaFX App

@@ -1,4 +1,4 @@
-package com.Tetris.TetrisCanvas;
+package com.Tetris.View;
 
 import com.Tetris.Model.TetrisInstance;
 import com.Tetris.Model.TetrisModel;
