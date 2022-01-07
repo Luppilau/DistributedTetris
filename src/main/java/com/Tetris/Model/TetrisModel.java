@@ -1,5 +1,7 @@
 package com.Tetris.Model;
 
+import javafx.beans.property.SimpleIntegerProperty;
+
 import java.util.ArrayList;
 
 import static java.lang.Math.max;
@@ -7,9 +9,9 @@ import static java.lang.Math.max;
 public class TetrisModel {
     public Tetrimino[][] matrix = new Tetrimino[10][40];
     public FallingPiece current;
-    public int level;
-    public int lines;
-    public int points;
+    public SimpleIntegerProperty level;
+    public SimpleIntegerProperty lines;
+    public SimpleIntegerProperty points;
     public boolean hasEnded = false;
     public ArrayList<Integer> linesCleared = new ArrayList(4);
 
@@ -22,9 +24,9 @@ public class TetrisModel {
     public TetrisModel() {
         current = generator.nextPiece();
         nextPiece = generator.nextPiece();
-        level = 0;
-        points = 0;
-        lines = 0;
+        level = new SimpleIntegerProperty(0);
+        points = new SimpleIntegerProperty(0);
+        lines = new SimpleIntegerProperty(0);
     }
 
     public void tick() {
@@ -52,12 +54,12 @@ public class TetrisModel {
             moveMatrixDown(y, 1);
             nLines += 1;
         }
-        lines += nLines;
-        points += calculateScore(nLines);
-        if (level >= 15 && lines % 10 == 0) {
-            level++;
-        } else if (lines >= level * 10 + 10 || lines >= max(100, 10 * level - 50)) {
-            level++;
+        lines.add(nLines);
+        points.add(calculateScore(nLines));
+        if (level.getValue() >= 15 && lines.getValue() % 10 == 0) {
+            level.add(1);
+        } else if (lines.getValue() >= level.getValue() * 10 + 10 || lines.getValue() >= max(100, 10 * level.getValue() - 50)) {
+            level.add(1);
         }
 
     }
