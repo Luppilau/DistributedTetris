@@ -1,5 +1,7 @@
 package com.Tetris.Model;
 
+import java.util.ArrayList;
+
 import static java.lang.Math.max;
 
 public class TetrisModel {
@@ -9,6 +11,7 @@ public class TetrisModel {
     public int lines;
     public int points;
     public boolean hasEnded = false;
+    public ArrayList<Integer> linesCleared = new ArrayList(4);
 
     private FallingPiece swap;
     private FallingPiece nextPiece;
@@ -45,6 +48,7 @@ public class TetrisModel {
                     continue lines;
                 }
             }
+            linesCleared.add(y);
             moveMatrixDown(y, 1);
             nLines += 1;
         }
@@ -105,7 +109,6 @@ public class TetrisModel {
             current.move(0, -1);
         }
         current.move(0, 1);
-        tick();
     }
 
     public Pair getGhostPosition() {
