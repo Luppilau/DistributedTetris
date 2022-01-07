@@ -1,5 +1,7 @@
 package com.Tetris.Model;
 
+import com.Tetris.Model.Tetriminoes.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,6 +11,25 @@ public class FallingPiece {
 
     public FallingPiece() {
         pos = new Pair(5, 21);
+    }
+    public static FallingPiece NewFallingPiece(Tetrimino T) {
+        switch (T) {
+            case I:
+                return new I();
+            case J:
+                return new J();
+            case L:
+                return new L();
+            case O:
+                return new O();
+            case S:
+                return new S();
+            case T:
+                return new T();
+            case Z:
+                return new Z();
+        }
+        return null;
     }
 
     public void rotateRight(Tetrimino[][] matrix) {
