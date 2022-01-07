@@ -13,6 +13,9 @@ public class TetrisCanvas extends Canvas {
     private static final double defaultHeight = 500;
     private static final double defaultWidth = 250;
 
+    private static final Color backgroundColor = Color.valueOf("#A9A9A9");
+    private static final Color outlineColor = Color.valueOf("#000000");
+
     private GraphicsContext context;
 
     public TetrisCanvas() {
@@ -29,9 +32,9 @@ public class TetrisCanvas extends Canvas {
 
     public void render(TetrisModel game) {
         context.clearRect(0, 0, getWidth(), getHeight());
-        context.setFill(Color.valueOf("#A9A9A9"));
+        context.setFill(backgroundColor);
         context.fillRect(0, 0, getWidth(), getHeight());
-        context.setStroke(Color.valueOf("#000000"));
+        context.setStroke(outlineColor);
         for (int x = 0; x < game.matrix.length; x++) {
             for (int y = 0; y < game.matrix[0].length; y++) {
                 if (game.matrix[x][y] == null) {
@@ -89,10 +92,17 @@ public class TetrisCanvas extends Canvas {
     }
 
     public void drawGrey(int y) {
-        context.setStroke(Color.valueOf("#000000"));
+        context.setStroke(outlineColor);
         context.setFill(Tetrimino.getColor(Tetrimino.TRASH));
         for (int x = 0; x < 10; x++) {
             paintSquareWithBorder(x, y);
         }
+    }
+
+    public void clearSquare(int clearedLine, int i) {
+        context.setFill(backgroundColor);
+        context.setStroke(backgroundColor);
+        paintSquareWithBorder(i-1,clearedLine);
+        paintSquareWithBorder(10-i,clearedLine);
     }
 }
