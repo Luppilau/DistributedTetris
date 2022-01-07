@@ -54,7 +54,7 @@ public class TetrisModel {
             moveMatrixDown(y, 1);
             nLines += 1;
         }
-        lines.add(nLines);
+        lines.set(lines.get()+nLines);
         points.add(calculateScore(nLines));
         if (level.getValue() >= 15 && lines.getValue() % 10 == 0) {
             level.add(1);
@@ -172,12 +172,16 @@ public class TetrisModel {
         switch (n) {
             case 1:
                 p = 40;
+                break;
             case 2:
                 p = 100;
+                break;
             case 3:
                 p = 300;
+                break;
             case 4:
                 p = 1200;
+                break;
         }
         return p * (level.getValue() + 1);
     }
