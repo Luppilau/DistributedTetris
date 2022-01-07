@@ -11,7 +11,7 @@ public class RandomPieceGenerator implements PieceGenerator {
     }
 
     public FallingPiece nextPiece() {
-        int next = r.nextInt(6);
+        int next = r.nextInt(7);
         switch (next) {
             case 0:
                 return new I();
