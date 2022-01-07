@@ -20,17 +20,29 @@
     </top> -->
     <left>
         <VBox fx:id="layoutLeft" spacing="10" alignment="top_right" >
-            <Label text="Left"/>
+            <Label text="Swap"/>
+
+             <padding>
+                <Insets top="0" right="10" bottom="0" left="10" />
+            </padding>
+
         </VBox>
     </left>
     <center>
 
     </center>
     <right>
-        <Label text="Right"/>
+        <VBox fx:id="layoutRight" spacing="10" alignment="top_right" >
+            <Label text="Next Piece"/>
+
+             <padding>
+                <Insets top="0" right="10" bottom="0" left="10" />
+            </padding>
+
+        </VBox>
     </right>
 
-    <bottom>
+    <!-- <bottom>
         <Label text="Bottom"/>
-    </bottom>
+    </bottom> -->
 </BorderPane>

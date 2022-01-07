@@ -31,8 +31,9 @@ public class FallingPiece {
                 return new T();
             case Z:
                 return new Z();
+            default:
+                return null;
         }
-        return null;
     }
 
     public void rotateRight(Tetrimino[][] matrix) {

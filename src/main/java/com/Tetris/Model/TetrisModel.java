@@ -11,17 +11,18 @@ public class TetrisModel {
     public boolean hasEnded = false;
 
     private FallingPiece swap;
+    private FallingPiece nextPiece;
     private boolean hasSwapped = false;
 
     private RandomPieceGenerator generator = new RandomPieceGenerator();
 
     public TetrisModel() {
         current = generator.nextPiece();
+        nextPiece = generator.nextPiece();
         level = 0;
         points = 0;
         lines = 0;
     }
-
 
     public void tick() {
         // Fall piece
@@ -65,7 +66,9 @@ public class TetrisModel {
                 hasEnded = true;
             }
         }
-        current = generator.nextPiece();
+
+        current = nextPiece;
+        nextPiece = generator.nextPiece();
     }
 
     public void rotateRight() {
@@ -125,8 +128,10 @@ public class TetrisModel {
                 temp = swap;
                 temp.pos = new Pair(FallingPiece.DEFAULTX, FallingPiece.DEFAULTY);
             } else {
-                temp = generator.nextPiece();
+                temp = nextPiece;
+                nextPiece = generator.nextPiece();
             }
+            current.rotation = Rotation.O;
             swap = current;
             current = temp;
             hasSwapped = true;
@@ -148,10 +153,10 @@ public class TetrisModel {
     public void moveMatrixUp(int amount) {
         for (int i = 9; i >= 0; i--) {
             for (int j = 39; j >= 0; j--) {
-                if (j-amount < 0) {
+                if (j - amount < 0) {
                     matrix[i][j] = Tetrimino.TRASH;
                 } else {
-                    matrix[i][j] = matrix[i][j-amount];
+                    matrix[i][j] = matrix[i][j - amount];
                 }
             }
         }
@@ -174,6 +179,10 @@ public class TetrisModel {
 
     public FallingPiece getSwap() {
         return swap;
+    }
+
+    public FallingPiece getNextPiece() {
+        return nextPiece;
     }
 
 }

@@ -40,10 +40,11 @@ public class TetriminoDisplayer extends Canvas {
                     corner2,
                     squareUnit,
                     squareUnit);
-            context.strokeRect(corner1,
-                    corner2,
-                    squareUnit,
-                    squareUnit);
+            context.strokeRect(
+                    corner1 + 1,
+                    corner2 + 1,
+                    squareUnit - 1,
+                    squareUnit - 1);
         }
     }
 

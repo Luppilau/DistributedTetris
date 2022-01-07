@@ -35,13 +35,10 @@ public class TetrisCanvas extends Canvas {
         for (int x = 0; x < game.matrix.length; x++) {
             for (int y = 0; y < game.matrix[0].length; y++) {
                 if (game.matrix[x][y] == null) {
-                    // context.setFill(Color.valueOf("#A9A9A9"));
                     continue;
-                } else {
-                    context.setFill(Tetrimino.getColor(game.matrix[x][y]));
                 }
+                context.setFill(Tetrimino.getColor(game.matrix[x][y]));
                 paintSquareWithBorder(x, y);
-
             }
         }
 
@@ -62,28 +59,32 @@ public class TetrisCanvas extends Canvas {
     private void paintSquareWithBorder(int x, int y) {
         double corner2 = getHeight() - (squareUnit * (1 + y));
         double corner1 = squareUnit * x;
-        context.fillRect(corner1,
+        context.fillRect(
+                corner1,
                 corner2,
                 squareUnit,
                 squareUnit);
-        context.strokeRect(corner1,
-                corner2,
-                squareUnit,
-                squareUnit);
+        context.strokeRect(
+                corner1 + 1,
+                corner2 + 1,
+                squareUnit - 1,
+                squareUnit - 1);
 
     }
 
     private void paintSquareGhost(int x, int y) {
         double corner2 = getHeight() - (squareUnit * (1 + y));
         double corner1 = squareUnit * x;
-        context.fillRect(corner1,
+        context.fillRect(
+                corner1,
                 corner2,
                 squareUnit,
                 squareUnit);
-        context.strokeRect(corner1,
-                corner2,
-                squareUnit,
-                squareUnit);
+        context.strokeRect(
+                corner1 + 1,
+                corner2 + 1,
+                squareUnit - 1,
+                squareUnit - 1);
 
     }
 

@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 public class TetrisScene extends Scene {
     public TetrisScene(Parent root) {
@@ -16,14 +17,19 @@ public class TetrisScene extends Scene {
         TetrisModel game = new TetrisModel();
         TetrisInstance instance = new TetrisInstance(canvas, game);
         TetriminoDisplayer swapPiece = new TetriminoDisplayer(canvas.squareUnit);
-        // TetriminoDisplayer nextPiece = new TetriminoDisplayer(canvas.squareUnit);
+        TetriminoDisplayer nextPiece = new TetriminoDisplayer(canvas.squareUnit);
         instance.start();
         swapPiece.render();
-        // nextPiece.render();
+        nextPiece.setPiece(game.getNextPiece());
+        nextPiece.render();
 
         BorderPane layout = (BorderPane) root.lookup("#layout");
         layout.setCenter(canvas);
-        layout.setLeft(swapPiece);
+        VBox left = (VBox) root.lookup("#layoutLeft");
+        left.getChildren().add(swapPiece);
+
+        VBox right = (VBox) root.lookup("#layoutRight");
+        right.getChildren().add(nextPiece);
 
         this.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent key) -> {
             if (key.getCode().equals(KeyCode.DOWN)) {
@@ -46,5 +52,4 @@ public class TetrisScene extends Scene {
             }
         });
     }
-
 }
