@@ -1,5 +1,6 @@
 package com.Tetris.View;
 
+import com.Tetris.Model.CustomEvent;
 import com.Tetris.Model.TetrisInstance;
 import com.Tetris.Model.TetrisModel;
 
@@ -19,17 +20,22 @@ public class TetrisScene extends Scene {
         TetriminoDisplayer swapPiece = new TetriminoDisplayer(canvas.squareUnit);
         TetriminoDisplayer nextPiece = new TetriminoDisplayer(canvas.squareUnit);
         instance.start();
-        swapPiece.render();
-        nextPiece.setPiece(game.getNextPiece());
-        nextPiece.render();
 
         BorderPane layout = (BorderPane) root.lookup("#layout");
         layout.setCenter(canvas);
+
         VBox left = (VBox) root.lookup("#layoutLeft");
         left.getChildren().add(swapPiece);
+        swapPiece.render();
 
         VBox right = (VBox) root.lookup("#layoutRight");
         right.getChildren().add(nextPiece);
+        nextPiece.setPiece(game.getNextPiece());
+        nextPiece.render();
+
+        canvas.addEventHandler(CustomEvent.NextPieceEvent, (x) -> {
+            System.out.println("test");
+        });
 
         this.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent key) -> {
             if (key.getCode().equals(KeyCode.DOWN)) {
