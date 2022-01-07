@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="897a77d1-12a5-4494-af1b-af09b23ce3b2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/SpacePieceGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DistributedTetris.iml" beforeDir="false" afterPath="$PROJECT_DIR$/DistributedTetris.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/FallingPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/FallingPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/TetrisInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/TetrisInstance.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
