@@ -4,11 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class FallingPiece {
-    public Pair pos;
+    public static final int DEFAULTX = 5;
+    public static final int DEFAULTY = 21;
     protected Rotation rotation = Rotation.O;
+    public Pair pos;
 
     public FallingPiece() {
-        pos = new Pair(5, 21);
+        pos = new Pair(DEFAULTX, DEFAULTY);
     }
 
     public void rotateRight(Tetrimino[][] matrix) {

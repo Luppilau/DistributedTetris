@@ -34,33 +34,60 @@ public class TetrisCanvas {
         context.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         context.setFill(Color.valueOf("#A9A9A9"));
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        context.setStroke(Color.valueOf("#000000"));
         for (int x = 0; x < game.matrix.length; x++) {
             for (int y = 0; y < game.matrix[0].length; y++) {
                 if (game.matrix[x][y] == null) {
+                    // context.setFill(Color.valueOf("#A9A9A9"));
                     continue;
+                } else {
+                    context.setFill(Tetrimino.getColor(game.matrix[x][y]));
                 }
-                context.setFill(Tetrimino.getColor(game.matrix[x][y]));
-
-                paintSquare(x, y);
+                paintSquareWithBorder(x, y);
 
             }
         }
 
-        context.setFill(Tetrimino.getColor(game.current.getType()));
+        Pair ghostPos = game.getGhostPosition();
+
+        for (Pair sq : game.current.getBlocks()) {
+            context.setFill(Color.valueOf("D3D3D3"));
+            paintSquareGhost(ghostPos.x + sq.x, ghostPos.y + sq.y);
+        }
+
         for (Pair sq : game.current.getSquares()) {
-            paintSquare(sq.x, sq.y);
+            context.setFill(Tetrimino.getColor(game.current.getType()));
+            paintSquareWithBorder(sq.x, sq.y);
         }
 
     }
 
-    private void paintSquare(int x, int y) {
+    private void paintSquareWithBorder(int x, int y) {
         double corner2 = canvas.getHeight() - (squareUnit * (1 + y));
         double corner1 = squareUnit * x;
-
         context.fillRect(corner1,
                 corner2,
                 squareUnit,
                 squareUnit);
+        context.strokeRect(corner1,
+                corner2,
+                squareUnit,
+                squareUnit);
+
+    }
+
+    private void paintSquareGhost(int x, int y) {
+        double corner2 = canvas.getHeight() - (squareUnit * (1 + y));
+        double corner1 = squareUnit * x;
+        context.fillRect(corner1,
+                corner2,
+                squareUnit,
+                squareUnit);
+        context.strokeRect(corner1,
+                corner2,
+                squareUnit,
+                squareUnit);
+
     }
 
     public Canvas getCanvas() {

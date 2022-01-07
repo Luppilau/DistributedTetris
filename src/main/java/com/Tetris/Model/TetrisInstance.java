@@ -55,4 +55,9 @@ public class TetrisInstance extends AnimationTimer {
         canvas.render(game);
     }
 
+    public void swap() {
+        game.swap();
+        canvas.render(game);
+    }
+
 }

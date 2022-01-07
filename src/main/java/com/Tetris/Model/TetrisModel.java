@@ -5,7 +5,8 @@ public class TetrisModel {
     public FallingPiece current;
     public int level;
     public int points;
-    private Tetrimino swap;
+    private FallingPiece swap;
+    private boolean hasSwapped = false;
 
     private RandomPieceGenerator generator = new RandomPieceGenerator();
 
@@ -32,6 +33,8 @@ public class TetrisModel {
 
         lockPiece();
 
+        hasSwapped = false;
+
         // Detect line clear
         lines: for (int y : relevantLines) {
             for (int x = 0; x < 10; x++) {
@@ -39,7 +42,6 @@ public class TetrisModel {
                     continue lines;
                 }
             }
-            System.out.println("Clearing line: " + y);
             moveMatrixDown(y, 1);
         }
 
@@ -80,6 +82,34 @@ public class TetrisModel {
         }
         current.move(0, 1);
         tick();
+    }
+
+    public Pair getGhostPosition() {
+        // Copy of old pos
+        Pair ghost = new Pair(current.pos.x, current.pos.y);
+        while (!current.colliding(matrix)) {
+            current.move(0, -1);
+        }
+        current.move(0, 1);
+        // Copy of ghost pos
+        Pair ghostPos = new Pair(current.pos.x, current.pos.y);
+        current.pos = ghost;
+        return ghostPos;
+    }
+
+    public void swap() {
+        if (!hasSwapped) {
+            FallingPiece temp;
+            if (swap != null) {
+                temp = swap;
+                temp.pos = new Pair(FallingPiece.DEFAULTX, FallingPiece.DEFAULTY);
+            } else {
+                temp = generator.nextPiece();
+            }
+            swap = current;
+            current = temp;
+            hasSwapped = true;
+        }
     }
 
     private void moveMatrixDown(int y, int amount) {

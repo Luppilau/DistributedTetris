@@ -1,6 +1,8 @@
 module com.App {
+    requires javafx.base;
     requires javafx.controls;
     requires javafx.graphics;
+    requires javafx.fxml;
     requires common;
 
     exports com.App;
