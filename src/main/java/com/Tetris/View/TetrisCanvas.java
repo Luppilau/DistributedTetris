@@ -16,9 +16,7 @@ public class TetrisCanvas extends Canvas {
     private GraphicsContext context;
 
     public TetrisCanvas() {
-        super();
-        setHeight(defaultHeight);
-        setWidth(defaultWidth);
+        super(defaultWidth, defaultHeight);
         squareUnit = defaultWidth / 10;
         context = getGraphicsContext2D();
     }
