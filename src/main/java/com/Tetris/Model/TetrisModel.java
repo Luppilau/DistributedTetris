@@ -1,9 +1,12 @@
 package com.Tetris.Model;
 
+import static java.lang.Math.max;
+
 public class TetrisModel {
     public Tetrimino[][] matrix = new Tetrimino[10][40];
     public FallingPiece current;
     public int level;
+    public int lines;
     public int points;
     private Tetrimino swap;
 
@@ -11,6 +14,9 @@ public class TetrisModel {
 
     public TetrisModel() {
         current = generator.nextPiece();
+        level = 2;
+        points = 0;
+        lines = 0;
     }
 
     private void lockPiece() {
@@ -33,6 +39,7 @@ public class TetrisModel {
         lockPiece();
 
         // Detect line clear
+        int nLines = 0;
         lines: for (int y : relevantLines) {
             for (int x = 0; x < 10; x++) {
                 if (matrix[x][y] == null) {
@@ -41,6 +48,12 @@ public class TetrisModel {
             }
             System.out.println("Clearing line: " + y);
             moveMatrixDown(y, 1);
+            nLines += 1;
+        }
+        lines += nLines;
+        points += calculateScore(nLines);
+        if (lines >= level*10+10 || lines >= max(100,10*level-50)) {
+            level++;
         }
 
     }
@@ -92,6 +105,21 @@ public class TetrisModel {
                 }
             }
         }
+    }
+
+    private int calculateScore(int n) {
+        int p = 0;
+        switch (n) {
+            case 1:
+                p = 40;
+            case 2:
+                p = 100;
+            case 3:
+                p = 300;
+            case 4:
+                p = 1200;
+        }
+        return p * (level+1);
     }
 
 }

@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="897a77d1-12a5-4494-af1b-af09b23ce3b2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/TetrisInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/TetrisInstance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/TetrisModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/TetrisModel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,7 +43,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
   </component>
-  <component name="RunManager" selected="JAR Application.DistributedTetris-1.0-SNAPSHOT-jar-with-dependencies.jar">
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.App.App" />
       <module name="DistributedTetris" />
@@ -69,8 +70,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JAR Application.DistributedTetris-1.0-SNAPSHOT-jar-with-dependencies.jar" />
         <item itemvalue="Application.App" />
+        <item itemvalue="JAR Application.DistributedTetris-1.0-SNAPSHOT-jar-with-dependencies.jar" />
         <item itemvalue="Application.HelloFX" />
       </list>
     </recent_temporary>

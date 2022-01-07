@@ -16,13 +16,13 @@ public class TetrisInstance extends AnimationTimer {
 
     @Override
     public void handle(long now) {
-        if (frames < 30) {
-            frames++;
+        if (frames > 0) {
+            frames--;
             return;
         }
         game.tick();
         canvas.render(game);
-        frames = 0;
+        updateFramesToTick();
     }
 
     public void rotateRight() {
@@ -53,6 +53,15 @@ public class TetrisInstance extends AnimationTimer {
     public void dropDown() {
         game.dropDown();
         canvas.render(game);
+    }
+
+    private void updateFramesToTick() {
+        final int[] times = {48,43,38,33,28,23,18,13,8,6,5,5,5,4,4,4,3,3,3,2,2,2,2,2,2,2,2,2,2};
+        if (game.level >= 29) {
+            frames = 1;
+        } else {
+            frames = times[game.level];
+        }
     }
 
 }
