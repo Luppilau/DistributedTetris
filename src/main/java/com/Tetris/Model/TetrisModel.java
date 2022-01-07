@@ -179,7 +179,7 @@ public class TetrisModel {
             case 4:
                 p = 1200;
         }
-        return p * (level + 1);
+        return p * (level.getValue() + 1);
     }
 
     public FallingPiece getSwap() {
