@@ -14,7 +14,7 @@ public class TetrisModel {
 
     public TetrisModel() {
         current = generator.nextPiece();
-        level = 2;
+        level = 0;
         points = 0;
         lines = 0;
     }
@@ -52,7 +52,9 @@ public class TetrisModel {
         }
         lines += nLines;
         points += calculateScore(nLines);
-        if (lines >= level*10+10 || lines >= max(100,10*level-50)) {
+        if (level >= 15 && lines % 10 == 0) {
+            level++;
+        } else if (lines >= level*10+10 || lines >= max(100,10*level-50)) {
             level++;
         }
 
