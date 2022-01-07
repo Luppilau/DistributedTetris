@@ -16,6 +16,7 @@ public class TetrisInstance extends AnimationTimer {
 
     @Override
     public void handle(long now) {
+        long start = System.currentTimeMillis();
         if (frames > 0) {
             frames--;
             return;
@@ -23,6 +24,8 @@ public class TetrisInstance extends AnimationTimer {
         game.tick();
         canvas.render(game);
         updateFramesToTick();
+        long end = System.currentTimeMillis();
+        System.out.println("Drew frame in: " + (end-start));
     }
 
     public void rotateRight() {
