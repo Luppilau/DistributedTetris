@@ -7,25 +7,33 @@ import javafx.animation.AnimationTimer;
 public class TetrisInstance extends AnimationTimer {
     private TetrisCanvas canvas;
     private TetrisModel game;
+    private State state;
     private int frames = 0;
 
     public TetrisInstance(TetrisCanvas canvas, TetrisModel model) {
         this.game = model;
         this.canvas = canvas;
+        this.state = State.Tick;
     }
 
     @Override
     public void handle(long now) {
-        long start = System.currentTimeMillis();
-        if (frames > 0) {
-            frames--;
-            return;
+        switch (state) {
+            case Tick:
+                if (frames > 0) {
+                    frames--;
+                    return;
+                }
+                game.tick();
+                canvas.render(game);
+                updateFramesToTick();
+            case HasEnded:
+
+            case ClearAnimation:
+
+            case EndAnimation:
         }
-        game.tick();
-        canvas.render(game);
-        updateFramesToTick();
-        long end = System.currentTimeMillis();
-        System.out.println("Drew frame in: " + (end - start));
+
     }
 
     public void rotateRight() {
@@ -73,4 +81,11 @@ public class TetrisInstance extends AnimationTimer {
         }
     }
 
+}
+
+enum State {
+    Tick,
+    ClearAnimation,
+    EndAnimation,
+    HasEnded
 }
