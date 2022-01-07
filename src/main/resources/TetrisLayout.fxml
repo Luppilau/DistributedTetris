@@ -5,14 +5,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml"
+<!-- <stylesheets>
+    <URL value="@TetrisLayout.css" />
+</stylesheets> -->
+
+<BorderPane 
+    xmlns:fx="http://javafx.com/fxml"
     fx:id="layout"
-    prefHeight="200" prefWidth="320">
-    <top>
+    stylesheets="@TetrisLayout.css"
+    prefHeight="1000"
+    >
+    <!-- <top>
         <Text text="Top"/>
-    </top>
+    </top> -->
     <left>
-        <Label text="Left"/>
+        <VBox fx:id="layoutLeft" spacing="10" alignment="top_right" >
+            <Label text="Left"/>
+        </VBox>
     </left>
     <center>
 

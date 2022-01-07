@@ -24,7 +24,6 @@ public class TetrisModel {
         for (Pair sq : current.getSquares()) {
             assert (!(sq.x < 0 || sq.x > 9 || sq.y < 0 || sq.y > 39));
             matrix[sq.x][sq.y] = current.getType();
-            System.out.println("Locked in piece at " + sq.y);
         }
         current = generator.nextPiece();
     }
@@ -153,6 +152,10 @@ public class TetrisModel {
                 p = 1200;
         }
         return p * (level + 1);
+    }
+
+    public FallingPiece getSwap() {
+        return swap;
     }
 
 }
