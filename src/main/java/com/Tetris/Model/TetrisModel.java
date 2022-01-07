@@ -56,7 +56,7 @@ public class TetrisModel {
         points += calculateScore(nLines);
         if (level >= 15 && lines % 10 == 0) {
             level++;
-        } else if (lines >= level*10+10 || lines >= max(100,10*level-50)) {
+        } else if (lines >= level * 10 + 10 || lines >= max(100, 10 * level - 50)) {
             level++;
         }
 
@@ -151,7 +151,7 @@ public class TetrisModel {
             case 4:
                 p = 1200;
         }
-        return p * (level+1);
+        return p * (level + 1);
     }
 
 }
