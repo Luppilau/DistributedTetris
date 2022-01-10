@@ -11,7 +11,7 @@ public class TetrisInstance extends AnimationTimer {
     private State state;
     private int frames = 0;
 
-    //DAS variables
+    // DAS variables
     public KeyCode keyPressed = null;
     public int keyPressedFrames = 0;
 
@@ -65,19 +65,24 @@ public class TetrisInstance extends AnimationTimer {
     }
 
     private void processDAS() {
-        final int dasDelay = 16;
-        final int dasTime = 6;
+        final int dasDelay = 12;
+        final int dasTime = 3;
 
         if (keyPressed == null) {
             return;
         }
-        if (keyPressedFrames == 0 || (keyPressedFrames >= dasDelay &&(keyPressedFrames-dasDelay) % dasTime == 0)) {
+        if (keyPressedFrames == 0 || (keyPressedFrames >= dasDelay && (keyPressedFrames - dasDelay) % dasTime == 0)) {
             switch (keyPressed) {
                 case RIGHT:
                     moveRight();
                     break;
                 case LEFT:
                     moveLeft();
+                    break;
+                case DOWN:
+                    moveDown();
+                    break;
+                default:
                     break;
             }
         }

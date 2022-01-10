@@ -52,12 +52,11 @@ public class TetrisScene extends Scene {
 
         this.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent key) -> {
             if (key.getCode().equals(KeyCode.DOWN)) {
-                instance.moveDown();
+                instance.keyPressed = KeyCode.DOWN;
+                instance.keyPressedFrames = 0;
             } else if (key.getCode().equals(KeyCode.LEFT)) {
-
                 instance.keyPressed = KeyCode.LEFT;
                 instance.keyPressedFrames = 0;
-
             } else if (key.getCode().equals(KeyCode.RIGHT)) {
                 instance.keyPressed = KeyCode.RIGHT;
                 instance.keyPressedFrames = 0;
