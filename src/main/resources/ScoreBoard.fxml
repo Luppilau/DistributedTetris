@@ -5,8 +5,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox fx:id="layoutRight" spacing="10" alignment="top_right" >
+<VBox 
+    spacing="10" 
+    alignment="top_right" 
+    xmlns:fx="http://javafx.com/fxml"
+>
     <Label text="Score: "/>
-    <Label text="" fx:id="score"/>
-    <Label text="Next Piece"/>
+    <Label text="0" fx:id="score" />
+    <Label text="Lines"/>
+    <Label text="0" fx:id="lines"/>
+    <Label text="Level"/>
+    <Label text="0" fx:id="level"/>
 </VBox>

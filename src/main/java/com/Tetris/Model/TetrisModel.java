@@ -1,5 +1,7 @@
 package com.Tetris.Model;
 
+import javafx.beans.property.SimpleIntegerProperty;
+
 import java.util.ArrayList;
 
 import javafx.scene.canvas.Canvas;
@@ -9,11 +11,11 @@ import static java.lang.Math.max;
 public class TetrisModel {
     public Tetrimino[][] matrix = new Tetrimino[10][40];
     public FallingPiece current;
-    public int level;
-    public int lines;
-    public int points;
+    public SimpleIntegerProperty level;
+    public SimpleIntegerProperty lines;
+    public SimpleIntegerProperty points;
     public boolean hasEnded = false;
-    public ArrayList<Integer> linesCleared = new ArrayList(4);
+    public ArrayList<Integer> linesCleared = new ArrayList<Integer>(4);
 
     private FallingPiece swap;
     private FallingPiece nextPiece;
@@ -25,9 +27,9 @@ public class TetrisModel {
     public TetrisModel(Canvas canvas) {
         current = generator.nextPiece();
         nextPiece = generator.nextPiece();
-        level = 0;
-        points = 0;
-        lines = 0;
+        level = new SimpleIntegerProperty(0);
+        points = new SimpleIntegerProperty(0);
+        lines = new SimpleIntegerProperty(0);
         this.canvas = canvas;
     }
 
@@ -56,12 +58,13 @@ public class TetrisModel {
             moveMatrixDown(y, 1);
             nLines += 1;
         }
-        lines += nLines;
-        points += calculateScore(nLines);
-        if (level >= 15 && lines % 10 == 0) {
-            level++;
-        } else if (lines >= level * 10 + 10 || lines >= max(100, 10 * level - 50)) {
-            level++;
+        lines.set(lines.get() + nLines);
+        points.set(points.get() + calculateScore(nLines));
+        if (level.getValue() >= 15 && lines.getValue() % 10 == 0) {
+            level.set(level.get() + 1);
+        } else if (lines.getValue() >= level.getValue() * 10 + 10
+                || lines.getValue() >= max(100, 10 * level.getValue() - 50)) {
+            level.set(level.get() + 1);
         }
 
     }
@@ -183,7 +186,7 @@ public class TetrisModel {
             case 4:
                 p = 1200;
         }
-        return p * (level + 1);
+        return p * (level.getValue() + 1);
     }
 
     public FallingPiece getSwap() {

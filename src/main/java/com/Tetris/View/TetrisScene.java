@@ -34,9 +34,13 @@ public class TetrisScene extends Scene {
         swapPiece.render();
 
         VBox right = (VBox) root.lookup("#layoutRight");
-        Parent scoreBoard = FXMLLoader.load(getClass().getClassLoader().getResource("TetrisLayout.fxml"));
+        Parent scoreBoard = FXMLLoader.load(getClass().getClassLoader().getResource("ScoreBoard.fxml"));
         Label score = (Label) scoreBoard.lookup("#score");
-        score.textProperty().bind();
+        score.textProperty().bind(game.points.asString());
+        Label lines = (Label) scoreBoard.lookup("#lines");
+        lines.textProperty().bind(game.lines.asString());
+        Label level = (Label) scoreBoard.lookup("#level");
+        level.textProperty().bind(game.level.asString());
         right.getChildren().add(nextPiece);
         right.getChildren().add(scoreBoard);
         nextPiece.setPiece(game.getNextPiece());
