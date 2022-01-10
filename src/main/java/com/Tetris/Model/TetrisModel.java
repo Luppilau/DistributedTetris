@@ -179,12 +179,16 @@ public class TetrisModel {
         switch (n) {
             case 1:
                 p = 40;
+                break;
             case 2:
                 p = 100;
+                break;
             case 3:
                 p = 300;
+                break;
             case 4:
                 p = 1200;
+                break;
         }
         return p * (level.getValue() + 1);
     }
