@@ -54,9 +54,13 @@ public class TetrisScene extends Scene {
             if (key.getCode().equals(KeyCode.DOWN)) {
                 instance.moveDown();
             } else if (key.getCode().equals(KeyCode.LEFT)) {
-                instance.moveLeft();
+
+                instance.keyPressed = KeyCode.LEFT;
+                instance.keyPressedFrames = 0;
+
             } else if (key.getCode().equals(KeyCode.RIGHT)) {
-                instance.moveRight();
+                instance.keyPressed = KeyCode.RIGHT;
+                instance.keyPressedFrames = 0;
             } else if (key.getCode().equals(KeyCode.UP) ||
                     key.getCode().equals(KeyCode.X)) {
                 instance.rotateRight();
@@ -68,6 +72,11 @@ public class TetrisScene extends Scene {
             } else if (key.getCode().equals(KeyCode.SHIFT)) {
                 instance.swap();
                 swapPiece.setPiece(game.getSwap());
+            }
+        });
+        this.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent key) -> {
+            if (instance.keyPressed == key.getCode()) {
+                instance.keyPressed = null;
             }
         });
     }

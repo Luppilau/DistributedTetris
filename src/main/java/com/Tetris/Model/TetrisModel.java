@@ -41,7 +41,7 @@ public class TetrisModel {
         }
         current.move(0, 1);
         int[] relevantLines = current.relevantLines();
-
+        //////////////
         lockPiece();
 
         hasSwapped = false;
@@ -51,6 +51,7 @@ public class TetrisModel {
         lines: for (int y : relevantLines) {
             for (int x = 0; x < 10; x++) {
                 if (matrix[x][y] == null) {
+
                     continue lines;
                 }
             }

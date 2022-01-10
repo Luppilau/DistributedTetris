@@ -3,12 +3,17 @@ package com.Tetris.Model;
 import com.Tetris.View.TetrisCanvas;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.input.KeyCode;
 
 public class TetrisInstance extends AnimationTimer {
     private TetrisCanvas canvas;
     private TetrisModel game;
     private State state;
     private int frames = 0;
+
+    //DAS variables
+    public KeyCode keyPressed = null;
+    public int keyPressedFrames = 0;
 
     private static final int clearAnimationFrames = 45;
 
@@ -20,6 +25,9 @@ public class TetrisInstance extends AnimationTimer {
 
     @Override
     public void handle(long now) {
+        processDAS();
+        keyPressedFrames += (keyPressed != null) ? 1 : 0;
+
         if (state == State.Tick) {
             if (frames > 0) {
                 frames--;
@@ -53,6 +61,25 @@ public class TetrisInstance extends AnimationTimer {
 
         } else if (state == State.HasEnded) {
 
+        }
+    }
+
+    private void processDAS() {
+        final int dasDelay = 16;
+        final int dasTime = 6;
+
+        if (keyPressed == null) {
+            return;
+        }
+        if (keyPressedFrames == 0 || (keyPressedFrames >= dasDelay &&(keyPressedFrames-dasDelay) % dasTime == 0)) {
+            switch (keyPressed) {
+                case RIGHT:
+                    moveRight();
+                    break;
+                case LEFT:
+                    moveLeft();
+                    break;
+            }
         }
     }
 
