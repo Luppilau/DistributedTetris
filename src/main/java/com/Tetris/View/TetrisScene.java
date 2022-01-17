@@ -9,15 +9,16 @@ import com.Tetris.Model.TetrisModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class TetrisScene extends BorderPane {
+    public TetriminoDisplayer swapPiece;
+    public TetriminoDisplayer nextPiece;
+
     public TetrisScene(TetrisCanvas canvas, TetrisModel game, TetrisInstance instance) throws IOException {
-        TetriminoDisplayer swapPiece = new TetriminoDisplayer(canvas.squareUnit);
-        TetriminoDisplayer nextPiece = new TetriminoDisplayer(canvas.squareUnit);
+        swapPiece = new TetriminoDisplayer(canvas.squareUnit);
+        nextPiece = new TetriminoDisplayer(canvas.squareUnit);
 
         setPrefHeight(500);
         setStyle("-fx-border-color: blue ;-fx-border-width: 5;");
@@ -45,35 +46,6 @@ public class TetrisScene extends BorderPane {
 
         canvas.addEventHandler(CustomEvent.NextPieceEvent, (x) -> {
             nextPiece.setPiece(game.getNextPiece());
-        });
-
-        this.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent key) -> {
-            if (key.getCode().equals(KeyCode.DOWN)) {
-                instance.keyPressed = KeyCode.DOWN;
-                instance.keyPressedFrames = 0;
-            } else if (key.getCode().equals(KeyCode.LEFT)) {
-                instance.keyPressed = KeyCode.LEFT;
-                instance.keyPressedFrames = 0;
-            } else if (key.getCode().equals(KeyCode.RIGHT)) {
-                instance.keyPressed = KeyCode.RIGHT;
-                instance.keyPressedFrames = 0;
-            } else if (key.getCode().equals(KeyCode.UP) ||
-                    key.getCode().equals(KeyCode.X)) {
-                instance.rotateRight();
-            } else if (key.getCode().equals(KeyCode.Z) ||
-                    key.getCode().equals(KeyCode.CONTROL)) {
-                instance.rotateLeft();
-            } else if (key.getCode().equals(KeyCode.SPACE)) {
-                instance.dropDown();
-            } else if (key.getCode().equals(KeyCode.SHIFT)) {
-                instance.swap();
-                swapPiece.setPiece(game.getSwap());
-            }
-        });
-        this.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent key) -> {
-            if (instance.keyPressed == key.getCode()) {
-                instance.keyPressed = null;
-            }
         });
     }
 }

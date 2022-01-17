@@ -23,17 +23,19 @@ public class Server {
         games.add("lobby", lobby);
 
         while (true) {
+            System.out.println("Waiting for game requests");
             lobby.get(new ActualField("game request"));
             lobby.get(new ActualField("game request"));
             int player1 = playerCount;
             int player2 = playerCount + 1;
             playerCount += 2;
-
+;
             int gameID = LobbyIDC; LobbyIDC++;
             Space game = new QueueSpace();
             games.put(""+gameID,game);
             games.addGate(URI + gameID + "?keep");
 
+            System.out.println("starting game thread");
             new Thread(new GameThread(game, gameID)).start();
 
             lobby.put()

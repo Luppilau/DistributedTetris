@@ -7,6 +7,8 @@ import com.Tetris.Model.TetrisModel;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
 public class GameView extends Scene {
@@ -27,5 +29,34 @@ public class GameView extends Scene {
         me.getChildren().add(gameScene);
         me.getChildren().add(oppGameScene);
         instance.start();
+
+        this.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent key) -> {
+            if (key.getCode().equals(KeyCode.DOWN)) {
+                instance.keyPressed = KeyCode.DOWN;
+                instance.keyPressedFrames = 0;
+            } else if (key.getCode().equals(KeyCode.LEFT)) {
+                instance.keyPressed = KeyCode.LEFT;
+                instance.keyPressedFrames = 0;
+            } else if (key.getCode().equals(KeyCode.RIGHT)) {
+                instance.keyPressed = KeyCode.RIGHT;
+                instance.keyPressedFrames = 0;
+            } else if (key.getCode().equals(KeyCode.UP) ||
+                    key.getCode().equals(KeyCode.X)) {
+                instance.rotateRight();
+            } else if (key.getCode().equals(KeyCode.Z) ||
+                    key.getCode().equals(KeyCode.CONTROL)) {
+                instance.rotateLeft();
+            } else if (key.getCode().equals(KeyCode.SPACE)) {
+                instance.dropDown();
+            } else if (key.getCode().equals(KeyCode.SHIFT)) {
+                instance.swap();
+                gameScene.swapPiece.setPiece(game.getSwap());
+            }
+        });
+        this.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent key) -> {
+            if (instance.keyPressed == key.getCode()) {
+                instance.keyPressed = null;
+            }
+        });
     }
 }

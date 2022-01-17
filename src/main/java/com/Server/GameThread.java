@@ -29,12 +29,14 @@ public class GameThread implements Runnable {
 
         try {
             // Get the ok from protocol, ensuring that each player is connected
+            System.out.println("Waiting for client OK");
             channel.get(new ActualField("ok"));
             channel.get(new ActualField("ok"));
 
             generator = new Thread(new PieceGenerator(Player1, Player2, channel));
             generator.start();
 
+            System.out.println("Waiting for scores");
             Object[] score1 = channel.get(GameEndTemplate.getFields());
             Object[] score2 = channel.get(GameEndTemplate.getFields());
             if ((int) score2[1] == Player1) {
@@ -79,6 +81,7 @@ public class GameThread implements Runnable {
         public void run() {
             while (true) {
                 try {
+                    System.out.println("Waiting for tetrimino package request");
                     Object[] request = channel.get(Message.tetriminoPackage().getFields());
                     int ID = (int) request[1];
                     int amount = (int) request[2];
