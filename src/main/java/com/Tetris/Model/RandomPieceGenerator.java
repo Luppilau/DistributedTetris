@@ -43,20 +43,28 @@ public class RandomPieceGenerator implements PieceGenerator {
             switch (next) {
                 case 0:
                     nextTetrimino = Tetrimino.I;
+                    break;
                 case 1:
                     nextTetrimino = Tetrimino.J;
+                    break;
                 case 2:
                     nextTetrimino = Tetrimino.L;
+                    break;
                 case 3:
                     nextTetrimino = Tetrimino.O;
+                    break;
                 case 4:
                     nextTetrimino = Tetrimino.S;
+                    break;
                 case 5:
                     nextTetrimino = Tetrimino.T;
+                    break;
                 case 6:
                     nextTetrimino = Tetrimino.Z;
+                    break;
                 default:
                     nextTetrimino = Tetrimino.TRASH;
+                    break;
             }
             out[i] = nextTetrimino;
         }

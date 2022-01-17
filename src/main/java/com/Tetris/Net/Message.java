@@ -4,8 +4,8 @@ import com.Tetris.Model.Tetrimino;
 import org.jspace.*;
 
 public class Message {
-    public static Tuple pieceRequest(int ID, int amount) {
-        return new Tuple("piece_request", ID, amount);
+    public static Object[] pieceRequest(int ID, int amount) {
+        return new Tuple("piece_request", ID, amount).getTuple();
     }
 
     public static Template pieceRequest() {

@@ -29,14 +29,13 @@ public class Server {
             playerCount += 2;
 
             int gameID = LobbyIDC; LobbyIDC++;
-            Space game = new QueueSpace();
-            games.put(""+gameID,game);
-            System.out.println(URI + gameID+ "?keep");
+            Space game = new SequentialSpace();
+            games.add("game"+gameID,game);
 
-            new Thread(new GameThread(game, gameID)).start();
+            new Thread(new GameThread(game, gameID,player1,player2)).start();
             lobby.put(ServerMessages.sessionDetails(gameID,player1));
             lobby.put(ServerMessages.sessionDetails(gameID,player2));
-
+            System.out.println("");
         }
 
     }
