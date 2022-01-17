@@ -11,9 +11,11 @@ import static java.lang.Math.max;
 public class TetrisModel {
     public Tetrimino[][] matrix = new Tetrimino[10][40];
     public FallingPiece current;
+
     public SimpleIntegerProperty level;
     public SimpleIntegerProperty lines;
     public SimpleIntegerProperty points;
+
     public boolean hasEnded = false;
     public ArrayList<Integer> linesCleared = new ArrayList<Integer>(4);
 
@@ -41,9 +43,7 @@ public class TetrisModel {
         }
         current.move(0, 1);
         int[] relevantLines = current.relevantLines();
-        //////////////
         lockPiece();
-
         hasSwapped = false;
 
         // Detect line clear
@@ -176,6 +176,7 @@ public class TetrisModel {
     }
 
     private int calculateScore(int n) {
+        assert(n >= 0 && n <= 4);
         int p = 0;
         switch (n) {
             case 1:
