@@ -10,10 +10,22 @@
     alignment="top_right" 
     xmlns:fx="http://javafx.com/fxml"
 >
-    <Label text="Score: "/>
-    <Label text="0" fx:id="score" />
-    <Label text="Lines"/>
-    <Label text="0" fx:id="lines"/>
-    <Label text="Level"/>
-    <Label text="0" fx:id="level"/>
+    <padding>
+        <Insets top="15" right="5" bottom="10" left="5" />
+    </padding>
+
+    <HBox spacing="2"  HBox.hgrow="ALWAYS" stylesheets="@Test.css">
+        <Label text="Score: "/>
+        <Label text="0" fx:id="score" />
+    </HBox>
+
+    <HBox spacing="9" HBox.hgrow="ALWAYS" >
+        <Label text="Lines:"/>
+        <Label text="0" fx:id="lines"/>
+    </HBox>
+
+    <HBox spacing="9"  HBox.hgrow="ALWAYS">
+        <Label text="Level:"/>
+        <Label text="0" fx:id="level"/>
+    </HBox>
 </VBox>

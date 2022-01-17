@@ -23,7 +23,7 @@ public class TetriminoDisplayer extends Canvas {
 
     public void render() {
         context.clearRect(0, 0, getWidth(), getHeight());
-        context.setFill(Color.valueOf("#A9A9A9"));
+        context.setFill(Color.valueOf("#000000"));
         context.fillRect(0, 0, getWidth(), getHeight());
         if (piece != null) {
             renderPiece();

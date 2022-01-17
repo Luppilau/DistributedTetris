@@ -13,7 +13,7 @@ public class TetrisCanvas extends Canvas {
     private static final double defaultHeight = 500;
     private static final double defaultWidth = 250;
 
-    private static final Color backgroundColor = Color.valueOf("#A9A9A9");
+    private static final Color backgroundColor = Color.valueOf("#000000");
     private static final Color outlineColor = Color.valueOf("#000000");
 
     private GraphicsContext context;
@@ -102,7 +102,7 @@ public class TetrisCanvas extends Canvas {
     public void clearSquare(int clearedLine, int i) {
         context.setFill(backgroundColor);
         context.setStroke(backgroundColor);
-        paintSquareWithBorder(i-1,clearedLine);
-        paintSquareWithBorder(10-i,clearedLine);
+        paintSquareWithBorder(i - 1, clearedLine);
+        paintSquareWithBorder(10 - i, clearedLine);
     }
 }
