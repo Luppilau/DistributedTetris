@@ -15,7 +15,7 @@ public class FallingPiece {
         pos = new Pair(DEFAULTX, DEFAULTY);
     }
 
-    public static FallingPiece NewFallingPiece(Tetrimino T) {
+    public static FallingPiece newFallingPiece(Tetrimino T) {
         switch (T) {
             case I:
                 return new I();

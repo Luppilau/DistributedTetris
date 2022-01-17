@@ -5,44 +5,29 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<!-- <stylesheets>
-    <URL value="@TetrisLayout.css" />
-</stylesheets> -->
-
 <BorderPane 
-    xmlns:fx="http://javafx.com/fxml"
-    fx:id="layout"
-    stylesheets="@TetrisLayout.css"
-    prefHeight="500"
-    >
-    <!-- <top>
-        <Text text="Top"/>
-    </top> -->
-    <left>
-        <VBox fx:id="layoutLeft" spacing="10" alignment="top_right" >
-            <Label text="Swap"/>
+        xmlns:fx="http://javafx.com/fxml"
+        fx:id="layout"
+        prefHeight="500"
+        styleClass="container-game"
+        >
+        <left>
+            <VBox fx:id="layoutLeft" spacing="10" alignment="top_right" >
+                <Label text="Swap"/>
 
-             <padding>
-                <Insets top="0" right="10" bottom="0" left="10" />
-            </padding>
+                <padding>
+                    <Insets top="0" right="10" bottom="0" left="10" />
+                </padding>
+            </VBox>
+        </left>
+        <center />
+        <right>
+            <VBox fx:id="layoutRight" spacing="10" alignment="top_right" >
+                <Label text="Next Piece"/>
 
-        </VBox>
-    </left>
-    <center>
-
-    </center>
-    <right>
-        <VBox fx:id="layoutRight" spacing="10" alignment="top_right" >
-            <Label text="Next Piece"/>
-
-             <padding>
-                <Insets top="0" right="10" bottom="0" left="10" />
-            </padding>
-
-        </VBox>
-    </right>
-
-    <!-- <bottom>
-        <Label text="Bottom"/>
-    </bottom> -->
-</BorderPane>
+                <padding>
+                    <Insets top="0" right="10" bottom="0" left="10" />
+                </padding>
+            </VBox>
+        </right>
+    </BorderPane>

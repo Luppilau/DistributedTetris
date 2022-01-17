@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import com.Tetris.View.TetrisScene;
+import com.Tetris.View.GameView;
 
 /**
  * JavaFX App
@@ -17,9 +17,9 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         // HomeScreen home = new HomeScreen();
-        Parent tetrisRoot = FXMLLoader.load(getClass().getClassLoader().getResource("TetrisLayout.fxml"));
-        TetrisScene tetrisScene = new TetrisScene(tetrisRoot);
-        stage.setScene(tetrisScene);
+        Parent gameRoot = FXMLLoader.load(getClass().getClassLoader().getResource("GameLayout.fxml"));
+        GameView gameView = new GameView(gameRoot);
+        stage.setScene(gameView);
         stage.show();
     }
 

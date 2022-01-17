@@ -20,7 +20,7 @@ public class SpacePieceGenerator implements PieceGenerator {
         try {
             Tetrimino T = (Tetrimino) channel.get(new FormalField(Tetrimino.class))[0];
             channel.put(Message.pieceRequest(0, 1));
-            return FallingPiece.NewFallingPiece(T);
+            return FallingPiece.newFallingPiece(T);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

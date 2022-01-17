@@ -4,18 +4,22 @@ import com.Tetris.Model.Tetrimino;
 import org.jspace.*;
 
 public class Message {
-    public static Tuple pieceRequest(int ID,int amount) {
-        return new Tuple("piece_request", ID,amount);
+    public static Tuple pieceRequest(int ID, int amount) {
+        return new Tuple("piece_request", ID, amount);
     }
+
     public static Template pieceRequest() {
-        return new Template(new ActualField("piece_request"), new FormalField(Integer.class), new FormalField(Integer.class));
+        return new Template(new ActualField("piece_request"), new FormalField(Integer.class),
+                new FormalField(Integer.class));
     }
+
     public static Tuple tetriminoPackage(int ID, Tetrimino[] list) {
         return new Tuple("tetrimino_package", ID, list);
     }
-    public static Template tetriminoPackage(int ID) {
+
+    public static Template tetriminoPackage() {
         return new Template(new ActualField("tetrimino_package"),
-                            new ActualField(ID),
-                            new FormalField(Tetrimino[].class));
+                new FormalField(Integer.class),
+                new FormalField(Tetrimino[].class));
     }
 }

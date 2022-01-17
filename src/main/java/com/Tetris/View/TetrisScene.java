@@ -8,31 +8,25 @@ import com.Tetris.Model.TetrisModel;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-public class TetrisScene extends Scene {
-    public TetrisScene(Parent root) throws IOException {
-        super(root);
-        TetrisCanvas canvas = new TetrisCanvas();
-        TetrisModel game = new TetrisModel(canvas);
-        TetrisInstance instance = new TetrisInstance(canvas, game);
+public class TetrisScene extends BorderPane {
+    public TetrisScene(TetrisCanvas canvas, TetrisModel game, TetrisInstance instance) throws IOException {
         TetriminoDisplayer swapPiece = new TetriminoDisplayer(canvas.squareUnit);
         TetriminoDisplayer nextPiece = new TetriminoDisplayer(canvas.squareUnit);
-        instance.start();
 
-        BorderPane layout = (BorderPane) root.lookup("#layout");
-        layout.setCenter(canvas);
+        setPrefHeight(500);
+        setStyle("-fx-border-color: blue ;-fx-border-width: 5;");
 
-        VBox left = (VBox) root.lookup("#layoutLeft");
+        VBox left = new VBox();
         left.getChildren().add(swapPiece);
         swapPiece.render();
 
-        VBox right = (VBox) root.lookup("#layoutRight");
+        VBox right = new VBox();
         Parent scoreBoard = FXMLLoader.load(getClass().getClassLoader().getResource("ScoreBoard.fxml"));
         Label score = (Label) scoreBoard.lookup("#score");
         score.textProperty().bind(game.points.asString());
@@ -44,6 +38,10 @@ public class TetrisScene extends Scene {
         right.getChildren().add(scoreBoard);
         nextPiece.setPiece(game.getNextPiece());
         nextPiece.render();
+
+        setCenter(canvas);
+        setLeft(left);
+        setRight(right);
 
         canvas.addEventHandler(CustomEvent.NextPieceEvent, (x) -> {
             nextPiece.setPiece(game.getNextPiece());

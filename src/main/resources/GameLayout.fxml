@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<HBox stylesheets="@GameLayout.css">
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30" />
+    </padding>
+</HBox>
