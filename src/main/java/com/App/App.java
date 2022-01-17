@@ -19,6 +19,7 @@ public class App extends Application {
         // HomeScreen home = new HomeScreen();
         Parent gameRoot = FXMLLoader.load(getClass().getClassLoader().getResource("GameLayout.fxml"));
         GameView gameView = new GameView(gameRoot);
+        stage.setResizable(false);
         stage.setScene(gameView);
         stage.show();
     }

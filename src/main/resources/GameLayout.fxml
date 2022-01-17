@@ -8,6 +8,6 @@
 
 <HBox stylesheets="@GameLayout.css">
     <padding>
-        <Insets top="30" right="30" bottom="30" left="30" />
+        <Insets top="25" right="25" bottom="25" left="25" />
     </padding>
 </HBox>

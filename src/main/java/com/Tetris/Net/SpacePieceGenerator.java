@@ -41,10 +41,10 @@ class ConnectionHandler implements Runnable {
         this.channel = channel;
 
         server_channel.put(Message.pieceRequest(sessionID, BUFFER_SIZE));
-        Tetrimino[] minoes = (Tetrimino[]) server_channel.get(Message.tetriminoPackage(sessionID).getFields())[3];
-        for (Tetrimino t : minoes) {
-            channel.put(t);
-        }
+        //Tetrimino[] minoes = (Tetrimino[]) server_channel.get(Message.tetriminoPackage(sessionID).getFields())[3];
+        //for (Tetrimino t : minoes) {
+        //    channel.put(t);
+        //}
     }
 
     @Override
@@ -54,9 +54,9 @@ class ConnectionHandler implements Runnable {
                 channel.get(Message.pieceRequest().getFields());
                 server_channel.put(Message.pieceRequest(sessionID, 1));
                 // Cursed line
-                Tetrimino t = (Tetrimino) ((Tetrimino[]) server_channel
-                        .get(Message.tetriminoPackage(sessionID).getFields())[3])[0];
-                channel.put(t);
+                //Tetrimino t = (Tetrimino) ((Tetrimino[]) server_channel
+                        //.get(Message.tetriminoPackage(sessionID).getFields())[3])[0];
+                //channel.put(t);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

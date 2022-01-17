@@ -7,6 +7,7 @@ import com.Tetris.Model.TetrisInstance;
 import com.Tetris.Model.TetrisModel;
 
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -21,13 +22,14 @@ public class TetrisScene extends BorderPane {
         nextPiece = new TetriminoDisplayer(canvas.squareUnit);
 
         setPrefHeight(500);
-        setStyle("-fx-border-color: blue ;-fx-border-width: 5;");
+        // setStyle("-fx-border-color: blue ;-fx-border-width: 5;");
 
         VBox left = new VBox();
         left.getChildren().add(swapPiece);
         swapPiece.render();
 
         VBox right = new VBox();
+        right.setSpacing(25);
         Parent scoreBoard = FXMLLoader.load(getClass().getClassLoader().getResource("ScoreBoard.fxml"));
         Label score = (Label) scoreBoard.lookup("#score");
         score.textProperty().bind(game.points.asString());
@@ -40,7 +42,10 @@ public class TetrisScene extends BorderPane {
         nextPiece.setPiece(game.getNextPiece());
         nextPiece.render();
 
-        setCenter(canvas);
+        VBox center = new VBox();
+        center.setPadding(new Insets(0, 25, 0, 25));
+        center.getChildren().add(canvas);
+        setCenter(center);
         setLeft(left);
         setRight(right);
 

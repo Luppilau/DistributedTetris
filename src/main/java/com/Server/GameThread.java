@@ -29,9 +29,8 @@ public class GameThread implements Runnable {
 
         try {
             // Get the ok from protocol, ensuring that each player is connected
-            System.out.println("Waiting for client OK");
-            channel.get(new ActualField("ok"));
-            channel.get(new ActualField("ok"));
+            channel.get(ServerMessages.okTemplate.getFields());
+            channel.get(ServerMessages.okTemplate.getFields());
 
             generator = new Thread(new PieceGenerator(Player1, Player2, channel));
             generator.start();

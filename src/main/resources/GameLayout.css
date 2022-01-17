@@ -2,9 +2,7 @@
     /***************************************************************************
      * The main color palette from which the rest of the colors are derived.   *
      **************************************************************************/
-    -fx-background: #2f4f4f;
-}
-
-.container-game {
-    
+    /* -fx-background: #2f4f4f; */
+    -fx-background-image: url('background.png');
+    -fx-background: #000000;
 }

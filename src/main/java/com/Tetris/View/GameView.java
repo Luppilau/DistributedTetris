@@ -15,6 +15,7 @@ public class GameView extends Scene {
     public GameView(Parent root) throws IOException {
         super(root);
         HBox me = (HBox) root;
+        me.setSpacing(25);
 
         TetrisCanvas canvas = new TetrisCanvas();
         TetrisModel game = new TetrisModel(canvas);
@@ -29,6 +30,7 @@ public class GameView extends Scene {
         me.getChildren().add(gameScene);
         me.getChildren().add(oppGameScene);
         instance.start();
+        oppInstance.start();
 
         this.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent key) -> {
             if (key.getCode().equals(KeyCode.DOWN)) {
