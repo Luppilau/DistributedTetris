@@ -6,7 +6,6 @@ import com.Tetris.Model.CustomEvent;
 import com.Tetris.Model.TetrisInstance;
 import com.Tetris.Model.TetrisModel;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
