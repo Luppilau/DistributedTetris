@@ -11,6 +11,14 @@ public class ServerMessages {
     public static final Template gameRequest = new Template(new ActualField("game request"));
     public static final Template sessionDetails = new Template(new ActualField("session details"), new FormalField(Integer.class), new FormalField(Integer.class));
 
+    public static final Template GameEndTemplate = new Template(new ActualField("final score"),
+            new FormalField(Integer.class),
+            new FormalField(Integer.class));
+
+    public static Object[] gameEndMessage(int playerID, int score) {
+        return new Tuple("final score", playerID,score).getTuple();
+    }
+
     public static Object[] sessionDetails(int gameID, int playerID) {
         return new Tuple("session details", gameID, playerID).getTuple();
     }

@@ -2,10 +2,11 @@ package com.Server;
 
 import com.Tetris.Model.RandomPieceGenerator;
 import com.Tetris.Model.Tetrimino;
-import com.Tetris.Net.GameEndMessage;
 import com.Tetris.Net.Message;
 
 import org.jspace.*;
+
+import static com.Server.ServerMessages.GameEndTemplate;
 
 public class GameThread implements Runnable {
     private int LobbyID;
@@ -19,21 +20,23 @@ public class GameThread implements Runnable {
         this.channel = channel;
         this.LobbyID = LobbyID;
         Player1 = p1; Player2 = p2;
+
+        System.out.println("Constructing piece generator");
+        PieceGenerator lol = new PieceGenerator(Player1, Player2, channel);
+        generator = new Thread(lol);
     }
 
     @Override
     public void run() {
-        Template GameEndTemplate = GameEndMessage.GameEndTemplate;
         try {
             //Get the ok from protocol, ensuring that each player is connected
             channel.get(ServerMessages.okTemplate.getFields());
             channel.get(ServerMessages.okTemplate.getFields());
             System.out.println("Got oks!");
 
-            generator = new Thread(new PieceGenerator(Player1, Player2, channel));
             generator.start();
 
-            System.out.println((String) channel.get(new FormalField(String.class))[0]);
+            System.out.println("Waiting for scores");
 
             Object[] score1 = channel.get(GameEndTemplate.getFields());
             Object[] score2 = channel.get(GameEndTemplate.getFields());
@@ -76,6 +79,7 @@ class PieceGenerator implements Runnable {
         long seed = (long) p1 ^ ((long) p2 ^ 37) * 12319874; // TODO Implement random seed!
         pieceGen1 = new RandomPieceGenerator(seed);
         pieceGen2 = new RandomPieceGenerator(seed);
+        System.out.println("p1: " + p1 + "; p2: " + p2);
     }
 
     @Override
@@ -83,17 +87,14 @@ class PieceGenerator implements Runnable {
         while (true) {
             try {
                 Object[] request = channel.get(Message.pieceRequest().getFields());
-                System.out.println("Got request");
                 int ID = (int) request[1];
                 int amount = (int) request[2];
 
                 Tetrimino[] minos;
-                System.out.println("p1: " + p1 +"; " + "p2: " + p2 + "; current " + ID);
+//                System.out.println("generating for: " + ID);
                 if (ID == p1) {
-                    System.out.println("Generating for p1");
                     minos = pieceGen1.nextPieces(amount);
                 } else {
-                    System.out.println("Generating for p2");
                     minos = pieceGen2.nextPieces(amount);
                 }
                 Tuple message = Message.tetriminoPackage(ID, minos);
@@ -101,7 +102,7 @@ class PieceGenerator implements Runnable {
                 channel.put(message.getTuple());
 
             } catch (InterruptedException e) {
-                e.printStackTrace();
+
             }
         }
     }

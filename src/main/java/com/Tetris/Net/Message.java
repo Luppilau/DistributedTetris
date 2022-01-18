@@ -17,9 +17,9 @@ public class Message {
         return new Tuple("tetrimino_package", ID, list);
     }
 
-    public static Template tetriminoPackage() {
+    public static Template tetriminoPackage(int ID) {
         return new Template(new ActualField("tetrimino_package"),
-                new FormalField(Integer.class),
+                new ActualField(ID),
                 new FormalField(Tetrimino[].class));
     }
 }

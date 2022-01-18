@@ -1,6 +1,7 @@
 package com.Server;
 
 import com.Tetris.Model.Tetrimino;
+import com.Tetris.Net.ClientPieceGenerator;
 import com.Tetris.Net.Message;
 import org.jspace.RemoteSpace;
 
@@ -23,26 +24,37 @@ public class ClientMock {
         int gameID = (int) p1[1];
 
         System.out.println(p1ID + " " + p2ID + ": " + gameID);
-        RemoteSpace game = new RemoteSpace(Server.URI + "game" + 0 + "?keep");
-        System.out.println(Server.URI + "game" + 0 + "?keep");
+        RemoteSpace game = new RemoteSpace(Server.URI + "game" + gameID + "?keep");
+        System.out.println(Server.URI + "game" + gameID + "?keep");
         game.put(ServerMessages.okMessage);
         game.put(ServerMessages.okMessage);
         System.out.println("Sent the messages");
 
-        game.put(Message.pieceRequest(p1ID,5));
-        game.put("wow");
-        game.put("wowow");
-        System.out.println("Sent piece request");
-        Tetrimino[] minos = (Tetrimino[]) game.get(Message.tetriminoPackage().getFields())[2];
-        for (Tetrimino T : minos) {
-            System.out.println(T);
+        ClientPieceGenerator player1Piece = new ClientPieceGenerator(game,p1ID);
+        ClientPieceGenerator player2Piece = new ClientPieceGenerator(game,p2ID);
+
+        Thread handle1 = new Thread(player1Piece);
+        Thread handle2 = new Thread(player2Piece);
+
+        handle1.start();
+        handle2.start();
+
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 10_000; i++) {
+            player1Piece.nextPiece().getType();
+            player2Piece.nextPiece().getType();
         }
-        System.out.println();
-        game.put(Message.pieceRequest(p2ID,5));
-        minos = (Tetrimino[]) game.get(Message.tetriminoPackage().getFields())[2];
-        for (Tetrimino T : minos) {
-            System.out.println(T);
-        }
+        long end = System.currentTimeMillis() - start;
+
+        System.out.println("Took 10 000 tetraminos in " + end +"ms");
+
+        game.put(ServerMessages.gameEndMessage(p1ID,30));
+        game.put(ServerMessages.gameEndMessage(p2ID,30));
+
+        handle1.interrupt();
+        handle2.interrupt();
+        System.out.println("goodbye");
+        System.exit(0);
     }
 
 
