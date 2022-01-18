@@ -13,11 +13,11 @@
 
     <HBox> 
         <children>
-            <TextField fx:id="field" prefWidth="200.0" />
+            <TextField fx:id="field" prefWidth="200.0" text="localhost" />
             <Button fx:id="button" text="Connect" />
         </children>
     </HBox>
 
-    <Text fx:id="error"/>
+    <Text fx:id="error" text="Try to connect" styleClass="error-text"/>
 
 </VBox>

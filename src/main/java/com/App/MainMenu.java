@@ -15,11 +15,14 @@ import com.Tetris.View.GameView;
 
 import org.jspace.RemoteSpace;
 
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 public class MainMenu extends Scene {
     Stage stage;
+
+    Object[] sessionDetails;
 
     public MainMenu(Parent root, Stage stage) {
         super(root);
@@ -51,26 +54,46 @@ public class MainMenu extends Scene {
     public void navigateToGame(RemoteSpace space, String ip) throws IOException {
         Parent gameRoot = FXMLLoader.load(getClass().getClassLoader().getResource("GameLayout.fxml"));
 
-        int gameID = 0;
-        int playerID = 0;
-
         // Connect to the server and get private space for game.
 
         try {
             space.put(ServerMessages.gameRequest());
-            Object[] sesDet = space.get(ServerMessages.sessionDetails.getFields());
 
-            gameID = (int) sesDet[1];
-            playerID = (int) sesDet[2];
+            Task<Void> gameSetUp = new Task<Void>() {
 
-            System.out.println("Got playerID: " + playerID + "and gameID: " + gameID );
+                @Override
+                protected Void call() {
+                    try {
+                        sessionDetails = space.get(ServerMessages.sessionDetails.getFields());
+                        succeeded();
+                    } catch (InterruptedException e) {
+                        failed();
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
 
-            String URI = Server.getURI(ip, gameID);
-            RemoteSpace game = new RemoteSpace(URI);
-            game.put(ServerMessages.okMessage);
-            GameView gameView = new GameView(gameRoot, game, playerID);
-            stage.setScene(gameView);
-            stage.show();
+            };
+            gameSetUp.run();
+            gameSetUp.setOnSucceeded(event -> {
+                int gameID = (int) sessionDetails[1];
+                int playerID = (int) sessionDetails[2];
+                System.out.println("Got playerID: " + playerID + "and gameID: " + gameID);
+
+                try {
+                    String URI = Server.getURI(ip, gameID);
+                    RemoteSpace game = new RemoteSpace(URI);
+                    game.put(ServerMessages.okMessage);
+                    GameView gameView = new GameView(gameRoot, game, playerID);
+                    stage.setScene(gameView);
+                    System.out.println("try again");
+                    stage.show();
+                } catch (Exception e) {
+                    System.out.println("lolol");
+                    e.printStackTrace();
+                }
+            });
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
