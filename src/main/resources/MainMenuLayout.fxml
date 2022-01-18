@@ -6,12 +6,18 @@
 <?import javafx.scene.text.*?>
 
 
-<HBox stylesheets="@HomeLayout.css">
+<VBox stylesheets="@HomeLayout.css" xmlns:fx="http://javafx.com/fxml">
     <padding>
-        <Insets top="25" right="25" bottom="25" left="25" />
+        <Insets top="100" right="100" bottom="100" left="100" />
     </padding>
 
-    <TextField id="FirstName" fx:id="firstName" />
-    <Button mnemonicParsing="false" onAction="#createPersonAction" prefHeight="37.0" prefWidth="79.0" text="Create" />
+    <HBox> 
+        <children>
+            <TextField fx:id="field" prefWidth="200.0" />
+            <Button fx:id="button" text="Connect" />
+        </children>
+    </HBox>
 
-</HBox>
+    <Text fx:id="error"/>
+
+</VBox>

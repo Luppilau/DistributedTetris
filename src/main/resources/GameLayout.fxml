@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 
 
-<HBox stylesheets="@GameLayout.css">
+<HBox stylesheets="@GameLayout.css" xmlns:fx="http://javafx.com/fxml">
     <padding>
         <Insets top="25" right="25" bottom="25" left="25" />
     </padding>

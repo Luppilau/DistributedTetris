@@ -4,11 +4,16 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
 
+import org.jspace.SequentialSpace;
+import org.jspace.Space;
+
 import javafx.scene.canvas.Canvas;
 
 import static java.lang.Math.max;
 
 public class TetrisModel {
+    public Space lock;
+
     public Tetrimino[][] matrix = new Tetrimino[10][40];
     public FallingPiece current;
 
@@ -37,6 +42,7 @@ public class TetrisModel {
 
     public void tick() {
         // Fall piece
+
         current.move(0, -1);
         if (!current.colliding(matrix)) {
             return;
@@ -176,7 +182,7 @@ public class TetrisModel {
     }
 
     private int calculateScore(int n) {
-        assert(n >= 0 && n <= 4);
+        assert (n >= 0 && n <= 4);
         int p = 0;
         switch (n) {
             case 1:
