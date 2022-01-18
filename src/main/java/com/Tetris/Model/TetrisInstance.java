@@ -60,7 +60,7 @@ public class TetrisInstance extends AnimationTimer {
             }
 
         } else if (state == State.HasEnded) {
-
+            //Send score to server and go to main menulocal
         }
     }
 

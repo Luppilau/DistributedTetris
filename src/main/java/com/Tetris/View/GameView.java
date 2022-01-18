@@ -19,12 +19,12 @@ public class GameView extends Scene {
         me.setSpacing(25);
 
         TetrisCanvas canvas = new TetrisCanvas();
-        TetrisModel game = new TetrisModel(canvas);
+        TetrisModel game = new TetrisModel(canvas, space, playerID);
         TetrisInstance instance = new TetrisInstance(canvas, game);
         TetrisScene gameScene = new TetrisScene(canvas, game, instance);
 
         TetrisCanvas oppCanvas = new TetrisCanvas();
-        TetrisModel oppGame = new TetrisModel(oppCanvas);
+        TetrisModel oppGame = new TetrisModel(oppCanvas,space,0);
         TetrisInstance oppInstance = new TetrisInstance(oppCanvas, oppGame);
         TetrisScene oppGameScene = new TetrisScene(oppCanvas, oppGame, oppInstance);
 

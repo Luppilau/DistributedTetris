@@ -24,17 +24,21 @@ public class TetrisModel {
     public SimpleIntegerProperty points;
 
     public boolean hasEnded = false;
-    public ArrayList<Integer> linesCleared = new ArrayList<Integer>(4);
+    public ArrayList<Integer> linesCleared = new ArrayList<>(4);
 
     private FallingPiece swap;
     private FallingPiece nextPiece;
     private boolean hasSwapped = false;
     private Canvas canvas;
 
-    private PieceGenerator generator;
+    private ClientPieceGenerator generator;
 
     public TetrisModel(Canvas canvas, RemoteSpace space, int playerID) {
+
+
         generator = new ClientPieceGenerator(space, playerID);
+
+        new Thread(generator).start();
 
         current = generator.nextPiece();
         nextPiece = generator.nextPiece();

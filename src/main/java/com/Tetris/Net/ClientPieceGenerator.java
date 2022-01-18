@@ -62,8 +62,10 @@ public class ClientPieceGenerator implements Runnable, PieceGenerator {
     public FallingPiece nextPiece() {
         if (currentTetrimino == BUFFER_SIZE) {
             try {
+                System.out.println("Taking piece");
                 internalSpace.put("piece request");
                 internalSpace.get(new ActualField("piece updated"));
+                System.out.println("Got piece");
             } catch (InterruptedException e) {
 
             }

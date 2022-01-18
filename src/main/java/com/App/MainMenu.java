@@ -63,6 +63,8 @@ public class MainMenu extends Scene {
             gameID = (int) sesDet[1];
             playerID = (int) sesDet[2];
 
+            System.out.println("Got playerID: " + playerID + "and gameID: " + gameID );
+
             String URI = Server.getURI(ip, gameID);
             RemoteSpace game = new RemoteSpace(URI);
             game.put(ServerMessages.okMessage);
