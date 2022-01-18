@@ -16,11 +16,14 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        // HomeScreen home = new HomeScreen();
-        Parent gameRoot = FXMLLoader.load(getClass().getClassLoader().getResource("GameLayout.fxml"));
-        GameView gameView = new GameView(gameRoot);
+
+        MainMenu home = new MainMenu();
+        // Parent gameRoot =
+        // FXMLLoader.load(getClass().getClassLoader().getResource("GameLayout.fxml"));
+        // GameView gameView = new GameView(gameRoot);
+        Scene homeView = new Scene(home);
         stage.setResizable(false);
-        stage.setScene(gameView);
+        stage.setScene(homeView);
         stage.show();
     }
 
