@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<HBox stylesheets="@HomeLayout.css">
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25" />
+    </padding>
+
+    <TextField id="FirstName" fx:id="firstName" />
+    <Button mnemonicParsing="false" onAction="#createPersonAction" prefHeight="37.0" prefWidth="79.0" text="Create" />
+
+</HBox>

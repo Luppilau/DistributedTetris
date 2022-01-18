@@ -1,0 +1,7 @@
+.root {
+    /***************************************************************************
+     * The main color palette from which the rest of the colors are derived.   *
+     **************************************************************************/
+    /* -fx-background: #2f4f4f; */
+    -fx-background: #000000;
+}
