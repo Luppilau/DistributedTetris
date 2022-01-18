@@ -8,9 +8,7 @@ import org.jspace.RemoteSpace;
 import org.jspace.SequentialSpace;
 import org.jspace.Space;
 
-import java.util.Arrays;
-
-public class ClientPieceGenerator implements Runnable, PieceGenerator{
+public class ClientPieceGenerator implements Runnable, PieceGenerator {
     private static final int BUFFER_SIZE = 7;
 
     private RemoteSpace netSpace;
@@ -28,8 +26,8 @@ public class ClientPieceGenerator implements Runnable, PieceGenerator{
         internalSpace = new SequentialSpace();
 
         try {
-            netSpace.put(Message.pieceRequest(playerID,BUFFER_SIZE));
-            netSpace.put(Message.pieceRequest(playerID,BUFFER_SIZE));
+            netSpace.put(Message.pieceRequest(playerID, BUFFER_SIZE));
+            netSpace.put(Message.pieceRequest(playerID, BUFFER_SIZE));
             Tetrimino[] minos1 = (Tetrimino[]) netSpace.get(Message.tetriminoPackage(playerID).getFields())[2];
             Tetrimino[] minos2 = (Tetrimino[]) netSpace.get(Message.tetriminoPackage(playerID).getFields())[2];
             currentPack = minos1;
@@ -38,7 +36,6 @@ public class ClientPieceGenerator implements Runnable, PieceGenerator{
             e.printStackTrace();
         }
 
-
     }
 
     @Override
@@ -46,13 +43,13 @@ public class ClientPieceGenerator implements Runnable, PieceGenerator{
         while (true) {
             try {
                 internalSpace.get(new ActualField("piece request"));
-                netSpace.put(Message.pieceRequest(playerID,BUFFER_SIZE));
+                netSpace.put(Message.pieceRequest(playerID, BUFFER_SIZE));
                 Tetrimino[] minos = (Tetrimino[]) netSpace.get(Message.tetriminoPackage(playerID).getFields())[2];
                 currentPack = nextPack;
                 nextPack = minos;
                 currentTetrimino = 0;
-//                System.out.println(Arrays.toString(currentPack));
-//                System.out.println(Arrays.toString(nextPack)+"\n");
+                // System.out.println(Arrays.toString(currentPack));
+                // System.out.println(Arrays.toString(nextPack)+"\n");
                 internalSpace.put("piece updated");
             } catch (InterruptedException e) {
 

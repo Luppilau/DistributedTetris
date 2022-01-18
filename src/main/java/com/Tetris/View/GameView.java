@@ -2,7 +2,6 @@ package com.Tetris.View;
 
 import java.io.IOException;
 
-import com.Server.ServerMessages;
 import com.Tetris.Model.TetrisInstance;
 import com.Tetris.Model.TetrisModel;
 
@@ -14,17 +13,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
 public class GameView extends Scene {
-    public GameView(Parent root, RemoteSpace space) throws IOException {
+    public GameView(Parent root, RemoteSpace space, int playerID) throws IOException {
         super(root);
         HBox me = (HBox) root;
         me.setSpacing(25);
-
-        // Connect to the server!
-        try {
-            space.put(ServerMessages.gameRequest());
-            space.get(ServerMessages.sessionDetails.getFields());
-        } catch (InterruptedException e) {
-        }
 
         TetrisCanvas canvas = new TetrisCanvas();
         TetrisModel game = new TetrisModel(canvas);

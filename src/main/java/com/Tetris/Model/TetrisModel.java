@@ -4,7 +4,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
 
-import org.jspace.SequentialSpace;
+import com.Tetris.Net.ClientPieceGenerator;
+
+import org.jspace.RemoteSpace;
 import org.jspace.Space;
 
 import javafx.scene.canvas.Canvas;
@@ -29,9 +31,11 @@ public class TetrisModel {
     private boolean hasSwapped = false;
     private Canvas canvas;
 
-    private RandomPieceGenerator generator = new RandomPieceGenerator();
+    private PieceGenerator generator;
 
-    public TetrisModel(Canvas canvas) {
+    public TetrisModel(Canvas canvas, RemoteSpace space, int playerID) {
+        generator = new ClientPieceGenerator(space, playerID);
+
         current = generator.nextPiece();
         nextPiece = generator.nextPiece();
         level = new SimpleIntegerProperty(0);

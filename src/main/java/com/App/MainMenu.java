@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import com.Server.Server;
+import com.Server.ServerMessages;
 import com.Tetris.View.GameView;
 
 import org.jspace.RemoteSpace;
@@ -32,7 +34,7 @@ public class MainMenu extends Scene {
             String URI = "tcp://" + ip + ":9090/lobby?keep";
             try {
                 RemoteSpace lobby = new RemoteSpace(URI);
-                navigateToGame(lobby);
+                navigateToGame(lobby, ip);
             } catch (IOException e) {
                 // Try again!
                 errorText.setText("ERROR! Try again");
@@ -48,12 +50,31 @@ public class MainMenu extends Scene {
         stage.show();
     }
 
-    public void navigateToGame(RemoteSpace space) throws IOException {
+    public void navigateToGame(RemoteSpace space, String ip) throws IOException {
         Parent gameRoot = FXMLLoader.load(getClass().getClassLoader().getResource("GameLayout.fxml"));
-        GameView gameView = new GameView(gameRoot, space);
 
-        stage.setScene(gameView);
-        stage.show();
+        int gameID = 0;
+        int playerID = 0;
+
+        // Connect to the server and get private space for game.
+
+        try {
+            space.put(ServerMessages.gameRequest());
+            Object[] sesDet = space.get(ServerMessages.sessionDetails.getFields());
+
+            gameID = (int) sesDet[1];
+            playerID = (int) sesDet[2];
+
+            String URI = Server.getURI(ip, gameID);
+            RemoteSpace game = new RemoteSpace(URI);
+            game.put(ServerMessages.okMessage);
+            GameView gameView = new GameView(gameRoot, game, playerID);
+            stage.setScene(gameView);
+            stage.show();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
