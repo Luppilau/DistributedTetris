@@ -40,8 +40,6 @@ public class MainMenu extends Scene {
                 errorText.setText("ERROR! Try again");
                 System.out.println("ERROR");
             }
-
-            System.out.println(connectTextField.getText());
         });
     }
 
