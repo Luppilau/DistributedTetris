@@ -17,7 +17,7 @@ public class TetrisScene extends BorderPane {
     public TetriminoDisplayer swapPiece;
     public TetriminoDisplayer nextPiece;
 
-    public TetrisScene(TetrisCanvas canvas, TetrisModel game, TetrisInstance instance) throws IOException {
+    public TetrisScene(TetrisCanvas canvas, TetrisModel game) throws IOException {
         swapPiece = new TetriminoDisplayer(canvas.squareUnit);
         nextPiece = new TetriminoDisplayer(canvas.squareUnit);
 

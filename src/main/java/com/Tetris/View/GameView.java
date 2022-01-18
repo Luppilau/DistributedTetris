@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import com.Tetris.Model.TetrisInstance;
 import com.Tetris.Model.TetrisModel;
+import com.Tetris.Model.Opponent.OpponentInstance;
+import com.Tetris.Model.Opponent.OpponentModel;
 
 import org.jspace.RemoteSpace;
 import javafx.scene.Parent;
@@ -13,7 +15,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
 public class GameView extends Scene {
-    public GameView(Parent root, RemoteSpace space, int playerID) throws IOException {
+    public GameView(Parent root, RemoteSpace space, int playerID, int opponentID) throws IOException {
         super(root);
         HBox me = (HBox) root;
         me.setSpacing(25);
@@ -21,17 +23,16 @@ public class GameView extends Scene {
         TetrisCanvas canvas = new TetrisCanvas();
         TetrisModel game = new TetrisModel(canvas, space, playerID);
         TetrisInstance instance = new TetrisInstance(canvas, game);
-        TetrisScene gameScene = new TetrisScene(canvas, game, instance);
+        TetrisScene gameScene = new TetrisScene(canvas, game);
 
         TetrisCanvas oppCanvas = new TetrisCanvas();
-        TetrisModel oppGame = new TetrisModel(oppCanvas,space,0);
-        TetrisInstance oppInstance = new TetrisInstance(oppCanvas, oppGame);
-        TetrisScene oppGameScene = new TetrisScene(oppCanvas, oppGame, oppInstance);
+        OpponentModel oppGame = new OpponentModel(oppCanvas);
+        OpponentInstance oppInstance = new OpponentInstance(oppCanvas, oppGame);
+        TetrisScene oppGameScene = new TetrisScene(oppCanvas, oppGame);
 
         me.getChildren().add(gameScene);
         me.getChildren().add(oppGameScene);
         instance.start();
-        oppInstance.start();
 
         this.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent key) -> {
             if (key.getCode().equals(KeyCode.DOWN)) {

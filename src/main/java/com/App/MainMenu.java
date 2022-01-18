@@ -78,18 +78,17 @@ public class MainMenu extends Scene {
             gameSetUp.setOnSucceeded(event -> {
                 int gameID = (int) sessionDetails[1];
                 int playerID = (int) sessionDetails[2];
+                int opponentID = (int) sessionDetails[3];
                 System.out.println("Got playerID: " + playerID + "and gameID: " + gameID);
 
                 try {
                     String URI = Server.getURI(ip, gameID);
                     RemoteSpace game = new RemoteSpace(URI);
                     game.put(ServerMessages.okMessage);
-                    GameView gameView = new GameView(gameRoot, game, playerID);
+                    GameView gameView = new GameView(gameRoot, game, playerID, opponentID);
                     stage.setScene(gameView);
-                    System.out.println("try again");
                     stage.show();
                 } catch (Exception e) {
-                    System.out.println("lolol");
                     e.printStackTrace();
                 }
             });

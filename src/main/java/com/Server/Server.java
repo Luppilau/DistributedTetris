@@ -34,8 +34,8 @@ public class Server {
             games.add("game" + gameID, game);
 
             new Thread(new GameThread(game, gameID, player1, player2)).start();
-            lobby.put(ServerMessages.sessionDetails(gameID, player1));
-            lobby.put(ServerMessages.sessionDetails(gameID, player2));
+            lobby.put(ServerMessages.sessionDetails(gameID, player1, player2));
+            lobby.put(ServerMessages.sessionDetails(gameID, player2, player1));
             System.out.println("");
         }
 

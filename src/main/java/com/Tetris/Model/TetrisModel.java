@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
 
+import com.Server.ServerMessages;
 import com.Tetris.Net.ClientPieceGenerator;
 
 import org.jspace.RemoteSpace;
@@ -15,6 +16,9 @@ import static java.lang.Math.max;
 
 public class TetrisModel {
     public Space lock;
+    private RemoteSpace netSpace;
+
+    private int playerID;
 
     public Tetrimino[][] matrix = new Tetrimino[10][40];
     public FallingPiece current;
@@ -32,16 +36,26 @@ public class TetrisModel {
     private Canvas canvas;
 
     private ClientPieceGenerator generator;
+    private Thread generatorThread;
 
     public TetrisModel(Canvas canvas, RemoteSpace space, int playerID) {
 
-
         generator = new ClientPieceGenerator(space, playerID);
+        netSpace = space;
+        this.playerID = playerID;
 
-        new Thread(generator).start();
+        generatorThread = new Thread(generator);
+        generatorThread.start();
 
         current = generator.nextPiece();
         nextPiece = generator.nextPiece();
+        level = new SimpleIntegerProperty(0);
+        points = new SimpleIntegerProperty(0);
+        lines = new SimpleIntegerProperty(0);
+        this.canvas = canvas;
+    }
+
+    public TetrisModel(Canvas canvas) {
         level = new SimpleIntegerProperty(0);
         points = new SimpleIntegerProperty(0);
         lines = new SimpleIntegerProperty(0);
@@ -88,8 +102,15 @@ public class TetrisModel {
         for (Pair sq : current.getSquares()) {
             assert (!(sq.x < 0 || sq.x > 9 || sq.y < 0 || sq.y > 39));
             matrix[sq.x][sq.y] = current.getType();
+            // END GAME
             if (sq.y >= 21) {
                 hasEnded = true;
+                try {
+                    netSpace.put(ServerMessages.gameEndMessage(playerID, points.get()));
+                    generatorThread.interrupt();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -165,7 +186,7 @@ public class TetrisModel {
         }
     }
 
-    private void moveMatrixDown(int y, int amount) {
+    protected void moveMatrixDown(int y, int amount) {
         for (int i = y; i < 39; i++) {
             for (int x = 0; x < 10; x++) {
                 if ((i + amount) > 39) {

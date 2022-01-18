@@ -146,4 +146,12 @@ public class FallingPiece {
             { new Pair(0, 0), new Pair(1, 0), new Pair(1, 1), new Pair(0, -2), new Pair(1, 2) }
     };
 
+    public void setLocation(Pair pos) {
+        this.pos = pos;
+    }
+
+    public void setRotation(Rotation rot) {
+        this.rotation = rot;
+    }
+
 }

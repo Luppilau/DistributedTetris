@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import com.Tetris.Model.Pair;
 import com.Tetris.Model.Tetrimino;
 import com.Tetris.Model.TetrisModel;
+import com.Tetris.Model.Opponent.OpponentModel;
 
 public class TetrisCanvas extends Canvas {
     public final double squareUnit;
@@ -57,6 +58,22 @@ public class TetrisCanvas extends Canvas {
             paintSquareWithBorder(sq.x, sq.y);
         }
 
+    }
+
+    public void renderOpponent(OpponentModel game) {
+        context.clearRect(0, 0, getWidth(), getHeight());
+        context.setFill(backgroundColor);
+        context.fillRect(0, 0, getWidth(), getHeight());
+        context.setStroke(outlineColor);
+        for (int x = 0; x < game.matrix.length; x++) {
+            for (int y = 0; y < game.matrix[0].length; y++) {
+                if (game.matrix[x][y] == null) {
+                    continue;
+                }
+                context.setFill(Tetrimino.getColor(game.matrix[x][y]));
+                paintSquareWithBorder(x, y);
+            }
+        }
     }
 
     private void paintSquareWithBorder(int x, int y) {
