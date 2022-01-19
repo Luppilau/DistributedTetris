@@ -1,7 +1,7 @@
 package com.Server;
 
-import com.Tetris.Net.UpdateData;
 import com.Tetris.Net.UpdateKind;
+import com.Tetris.Net.Updates.UpdateData;
 
 import org.jspace.ActualField;
 import org.jspace.FormalField;
@@ -29,8 +29,12 @@ public class ServerMessages {
                 new ActualField("update"),
                 new ActualField(ID),
                 new FormalField(UpdateKind.class),
-                new FormalField(UpdateData.class)).getFields();
+                new FormalField(Object.class)).getFields();
 
+    }
+
+    public static Object[] update(int playerID, UpdateKind kind, UpdateData data) {
+        return new Tuple("update", playerID, kind, data).getTuple();
     }
 
     public static Object[] gameEndMessage(int playerID, int score) {

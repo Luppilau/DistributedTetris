@@ -19,7 +19,8 @@ public class GameThread implements Runnable {
     public GameThread(Space channel, int LobbyID, int p1, int p2) {
         this.channel = channel;
         this.LobbyID = LobbyID;
-        Player1 = p1; Player2 = p2;
+        Player1 = p1;
+        Player2 = p2;
 
         System.out.println("Constructing piece generator");
         PieceGenerator lol = new PieceGenerator(Player1, Player2, channel);
@@ -29,7 +30,7 @@ public class GameThread implements Runnable {
     @Override
     public void run() {
         try {
-            //Get the ok from protocol, ensuring that each player is connected
+            // Get the ok from protocol, ensuring that each player is connected
             channel.get(ServerMessages.okTemplate.getFields());
             channel.get(ServerMessages.okTemplate.getFields());
             System.out.println("Got oks!");
@@ -59,7 +60,6 @@ public class GameThread implements Runnable {
             e.printStackTrace();
         }
     }
-
 
 }
 
@@ -91,7 +91,6 @@ class PieceGenerator implements Runnable {
                 int amount = (int) request[2];
 
                 Tetrimino[] minos;
-//                System.out.println("generating for: " + ID);
                 if (ID == p1) {
                     minos = pieceGen1.nextPieces(amount);
                 } else {

@@ -6,7 +6,11 @@ import java.util.ArrayList;
 
 import com.Server.ServerMessages;
 import com.Tetris.Net.ClientPieceGenerator;
+import com.Tetris.Net.UpdateKind;
+import com.Tetris.Net.Updates.LineClear;
+import com.Tetris.Net.Updates.PiecePlaced;
 
+import org.jspace.FormalField;
 import org.jspace.RemoteSpace;
 import org.jspace.Space;
 
@@ -15,7 +19,7 @@ import javafx.scene.canvas.Canvas;
 import static java.lang.Math.max;
 
 public class TetrisModel {
-    public Space lock;
+    public Space junkQueue;
     private RemoteSpace netSpace;
 
     private int playerID;
@@ -38,11 +42,12 @@ public class TetrisModel {
     private ClientPieceGenerator generator;
     private Thread generatorThread;
 
-    public TetrisModel(Canvas canvas, RemoteSpace space, int playerID) {
-
+    public TetrisModel(Canvas canvas, RemoteSpace space, Space junkQueue, int playerID) {
         generator = new ClientPieceGenerator(space, playerID);
         netSpace = space;
         this.playerID = playerID;
+
+        this.junkQueue = junkQueue;
 
         generatorThread = new Thread(generator);
         generatorThread.start();
@@ -87,6 +92,28 @@ public class TetrisModel {
             moveMatrixDown(y, 1);
             nLines += 1;
         }
+
+        if (nLines > 0) {
+            sendLinesClearedUpdate(linesCleared.stream().mapToInt(i -> i).toArray());
+        }
+
+        // Receive all junk-updates
+
+        try {
+            Object s = junkQueue.getp(new FormalField(Integer.class))[0];
+            while (s != null) {
+                Integer nextJunkAmt = (Integer) junkQueue.getp(new FormalField(Integer.class))[0];
+                for (int i = 0; i < linesCleared.size(); i++) {
+                    linesCleared.set(i, linesCleared.get(i) + nextJunkAmt);
+                }
+
+                moveMatrixUp(nextJunkAmt);
+                s = junkQueue.getp(new FormalField(Integer.class))[0];
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         lines.set(lines.get() + nLines);
         points.set(points.get() + calculateScore(nLines));
         if (level.getValue() >= 15 && lines.getValue() % 10 == 0) {
@@ -99,21 +126,17 @@ public class TetrisModel {
     }
 
     private void lockPiece() {
+        sendPieceUpdate(current);
         for (Pair sq : current.getSquares()) {
             assert (!(sq.x < 0 || sq.x > 9 || sq.y < 0 || sq.y > 39));
             matrix[sq.x][sq.y] = current.getType();
             // END GAME
             if (sq.y >= 21) {
                 hasEnded = true;
-                try {
-                    netSpace.put(ServerMessages.gameEndMessage(playerID, points.get()));
-                    generatorThread.interrupt();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                sendGameEndUpdate();
+
             }
         }
-
         current = nextPiece;
         nextPiece = generator.nextPiece();
         canvas.fireEvent(new CustomEvent(CustomEvent.NextPieceEvent));
@@ -236,6 +259,31 @@ public class TetrisModel {
 
     public FallingPiece getNextPiece() {
         return nextPiece;
+    }
+
+    private void sendGameEndUpdate() {
+        try {
+            netSpace.put(ServerMessages.gameEndMessage(playerID, points.get()));
+            generatorThread.interrupt();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendLinesClearedUpdate(int[] linesCleared) {
+        try {
+            netSpace.put(ServerMessages.update(playerID, UpdateKind.LineClear, new LineClear(linesCleared)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendPieceUpdate(FallingPiece piece) {
+        try {
+            netSpace.put(ServerMessages.update(playerID, UpdateKind.PiecePlaced, new PiecePlaced(piece)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

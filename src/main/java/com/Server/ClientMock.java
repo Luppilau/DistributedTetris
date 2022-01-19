@@ -1,12 +1,9 @@
 package com.Server;
 
-import com.Tetris.Model.Tetrimino;
 import com.Tetris.Net.ClientPieceGenerator;
-import com.Tetris.Net.Message;
 import org.jspace.RemoteSpace;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 public class ClientMock {
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -30,8 +27,8 @@ public class ClientMock {
         game.put(ServerMessages.okMessage);
         System.out.println("Sent the messages");
 
-        ClientPieceGenerator player1Piece = new ClientPieceGenerator(game,p1ID);
-        ClientPieceGenerator player2Piece = new ClientPieceGenerator(game,p2ID);
+        ClientPieceGenerator player1Piece = new ClientPieceGenerator(game, p1ID);
+        ClientPieceGenerator player2Piece = new ClientPieceGenerator(game, p2ID);
 
         Thread handle1 = new Thread(player1Piece);
         Thread handle2 = new Thread(player2Piece);
@@ -46,16 +43,15 @@ public class ClientMock {
         }
         long end = System.currentTimeMillis() - start;
 
-        System.out.println("Took 10 000 tetraminos in " + end +"ms");
+        System.out.println("Took 10 000 tetraminos in " + end + "ms");
 
-        game.put(ServerMessages.gameEndMessage(p1ID,30));
-        game.put(ServerMessages.gameEndMessage(p2ID,30));
+        game.put(ServerMessages.gameEndMessage(p1ID, 30));
+        game.put(ServerMessages.gameEndMessage(p2ID, 30));
 
         handle1.interrupt();
         handle2.interrupt();
         System.out.println("goodbye");
         System.exit(0);
     }
-
 
 }

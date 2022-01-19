@@ -154,4 +154,8 @@ public class FallingPiece {
         this.rotation = rot;
     }
 
+    public Rotation getRotation() {
+        return rotation;
+    }
+
 }

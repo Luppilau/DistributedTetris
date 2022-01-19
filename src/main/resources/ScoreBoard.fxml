@@ -14,7 +14,7 @@
         <Insets top="15" right="5" bottom="10" left="5" />
     </padding>
 
-    <HBox spacing="2"  HBox.hgrow="ALWAYS" stylesheets="@Test.css">
+    <HBox spacing="2"  HBox.hgrow="ALWAYS" >
         <Label text="Score: "/>
         <Label text="0" fx:id="score" />
     </HBox>

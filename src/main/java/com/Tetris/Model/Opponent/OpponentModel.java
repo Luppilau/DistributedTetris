@@ -18,7 +18,7 @@ public class OpponentModel extends TetrisModel {
         FallingPiece piece = FallingPiece.newFallingPiece(kind);
         piece.setRotation(rot);
         piece.setLocation(pos);
-        for (Pair sq : piece.getBlocks()) {
+        for (Pair sq : piece.getSquares()) {
             this.matrix[sq.x][sq.y] = kind;
         }
     }
