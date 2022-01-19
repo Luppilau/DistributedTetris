@@ -100,9 +100,9 @@ public class TetrisModel {
         // Receive all junk-updates
 
         try {
-            Object s = junkQueue.getp(new FormalField(Integer.class))[0];
+            Object s = junkQueue.getp(new FormalField(Integer.class));
             while (s != null) {
-                Integer nextJunkAmt = (Integer) junkQueue.getp(new FormalField(Integer.class))[0];
+                Integer nextJunkAmt = (Integer) ((Object[]) junkQueue.getp(new FormalField(Integer.class)))[0];
                 for (int i = 0; i < linesCleared.size(); i++) {
                     linesCleared.set(i, linesCleared.get(i) + nextJunkAmt);
                 }
