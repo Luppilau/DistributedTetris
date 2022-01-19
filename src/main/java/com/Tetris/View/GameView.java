@@ -38,15 +38,15 @@ public class GameView extends Scene {
 
         TetrisCanvas oppCanvas = new TetrisCanvas();
         OpponentModel oppGame = new OpponentModel(oppCanvas);
-        OpponentInstance oppInstance = new OpponentInstance(oppCanvas, oppGame);
         TetrisScene oppGameScene = new TetrisScene(oppCanvas, oppGame);
+        OpponentInstance oppInstance = new OpponentInstance(oppCanvas, oppGame, oppGameScene);
 
         me.getChildren().add(gameScene);
         me.getChildren().add(oppGameScene);
         instance.start();
 
-        updateHandlerHandle = new Thread(new UpdateHandler(space, opponentID, instance,
-                oppInstance, junkQueue));
+        updateHandlerHandle = new Thread(
+                new UpdateHandler(space, opponentID, playerID, instance, oppInstance, junkQueue));
         updateHandlerHandle.start();
 
         this.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent key) -> handleKeyEvent(key));

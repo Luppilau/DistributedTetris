@@ -8,7 +8,9 @@ import com.Server.ServerMessages;
 import com.Tetris.Net.ClientPieceGenerator;
 import com.Tetris.Net.UpdateKind;
 import com.Tetris.Net.Updates.LineClear;
+import com.Tetris.Net.Updates.NextPiece;
 import com.Tetris.Net.Updates.PiecePlaced;
+import com.Tetris.Net.Updates.Swap;
 
 import org.jspace.FormalField;
 import org.jspace.RemoteSpace;
@@ -54,6 +56,7 @@ public class TetrisModel {
 
         current = generator.nextPiece();
         nextPiece = generator.nextPiece();
+        sendNextPieceUpdate(nextPiece.getType());
         level = new SimpleIntegerProperty(0);
         points = new SimpleIntegerProperty(0);
         lines = new SimpleIntegerProperty(0);
@@ -79,15 +82,15 @@ public class TetrisModel {
         lockPiece();
         hasSwapped = false;
 
-        // Detect line clear
         int nLines = 0;
         lines: for (int y : relevantLines) {
+            // Detect line clear
             for (int x = 0; x < 10; x++) {
                 if (matrix[x][y] == null) {
-
                     continue lines;
                 }
             }
+            // Realize line clear
             linesCleared.add(y);
             moveMatrixDown(y, 1);
             nLines += 1;
@@ -100,15 +103,17 @@ public class TetrisModel {
         // Receive all junk-updates
 
         try {
-            Object s = junkQueue.getp(new FormalField(Integer.class));
+            Object s = junkQueue.getp(new FormalField(Integer.class), new FormalField(Integer.class));
             while (s != null) {
-                Integer nextJunkAmt = (Integer) ((Object[]) junkQueue.getp(new FormalField(Integer.class)))[0];
+                Integer nextJunkAmt = (Integer) ((Object[]) s)[0];
+                Integer hole = (Integer) ((Object[]) s)[1];
+                System.out.println("Moving up! " + nextJunkAmt + " lines. hole at " + hole);
                 for (int i = 0; i < linesCleared.size(); i++) {
                     linesCleared.set(i, linesCleared.get(i) + nextJunkAmt);
                 }
 
-                moveMatrixUp(nextJunkAmt);
-                s = junkQueue.getp(new FormalField(Integer.class))[0];
+                moveMatrixUp(nextJunkAmt, hole);
+                s = junkQueue.getp(new FormalField(Integer.class), new FormalField(Integer.class));
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -139,6 +144,7 @@ public class TetrisModel {
         }
         current = nextPiece;
         nextPiece = generator.nextPiece();
+        sendNextPieceUpdate(nextPiece.getType());
         canvas.fireEvent(new CustomEvent(CustomEvent.NextPieceEvent));
 
     }
@@ -206,10 +212,13 @@ public class TetrisModel {
             swap = current;
             current = temp;
             hasSwapped = true;
+            sendNextPieceUpdate(nextPiece.getType());
+            sendSwapUpdate(swap.getType());
         }
     }
 
     protected void moveMatrixDown(int y, int amount) {
+
         for (int i = y; i < 39; i++) {
             for (int x = 0; x < 10; x++) {
                 if ((i + amount) > 39) {
@@ -221,11 +230,15 @@ public class TetrisModel {
         }
     }
 
-    public void moveMatrixUp(int amount) {
-        for (int i = 9; i >= 0; i--) {
+    public void moveMatrixUp(int amount, int hole) {
+        for (int i = 0; i < 10; i++) {
             for (int j = 39; j >= 0; j--) {
-                if (j - amount < 0) {
-                    matrix[i][j] = Tetrimino.TRASH;
+                if (j < amount) {
+                    if (i == hole) {
+                        matrix[i][j] = null;
+                    } else {
+                        matrix[i][j] = Tetrimino.TRASH;
+                    }
                 } else {
                     matrix[i][j] = matrix[i][j - amount];
                 }
@@ -281,6 +294,22 @@ public class TetrisModel {
     private void sendPieceUpdate(FallingPiece piece) {
         try {
             netSpace.put(ServerMessages.update(playerID, UpdateKind.PiecePlaced, new PiecePlaced(piece)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendSwapUpdate(Tetrimino type) {
+        try {
+            netSpace.put(ServerMessages.update(playerID, UpdateKind.Swap, new Swap(type)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendNextPieceUpdate(Tetrimino type) {
+        try {
+            netSpace.put(ServerMessages.update(playerID, UpdateKind.NextPiece, new NextPiece(type)));
         } catch (Exception e) {
             e.printStackTrace();
         }

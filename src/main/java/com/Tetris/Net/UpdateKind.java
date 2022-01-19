@@ -4,4 +4,6 @@ public enum UpdateKind {
     LineClear,
     LinesSent,
     PiecePlaced,
+    Swap,
+    NextPiece,
 }

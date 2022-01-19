@@ -1,17 +1,21 @@
 package com.Tetris.Model.Opponent;
 
+import com.Tetris.Model.FallingPiece;
 import com.Tetris.Model.Pair;
 import com.Tetris.Model.Rotation;
 import com.Tetris.Model.Tetrimino;
 import com.Tetris.View.TetrisCanvas;
+import com.Tetris.View.TetrisScene;
 
 public class OpponentInstance {
     private TetrisCanvas canvas;
     private OpponentModel model;
+    private TetrisScene scene;
 
-    public OpponentInstance(TetrisCanvas canvas, OpponentModel model) {
+    public OpponentInstance(TetrisCanvas canvas, OpponentModel model, TetrisScene scene) {
         this.canvas = canvas;
         this.model = model;
+        this.scene = scene;
         canvas.renderOpponent(model);
     }
 
@@ -26,8 +30,16 @@ public class OpponentInstance {
         canvas.renderOpponent(model);
     }
 
-    public void sendLines(int amount) {
-        model.sendLines(amount);
+    public void sendLines(int amount, int hole) {
+        model.sendLines(amount, hole);
         canvas.renderOpponent(model);
+    }
+
+    public void swap(Tetrimino type) {
+        scene.swapPiece.setPiece(FallingPiece.newFallingPiece(type));
+    }
+
+    public void nextPiece(Tetrimino type) {
+        scene.nextPiece.setPiece(FallingPiece.newFallingPiece(type));
     }
 }

@@ -24,18 +24,12 @@ public class OpponentModel extends TetrisModel {
     }
 
     public void clearLines(int[] lines) {
-        lines: for (int y : lines) {
-            for (int x = 0; x < 10; x++) {
-                if (matrix[x][y] == null) {
-
-                    continue lines;
-                }
-            }
+        for (int y : lines) {
             super.moveMatrixDown(y, 1);
         }
     }
 
-    public void sendLines(int amount) {
-        super.moveMatrixUp(amount);
+    public void sendLines(int amount, int hole) {
+        super.moveMatrixUp(amount, hole);
     }
 }
