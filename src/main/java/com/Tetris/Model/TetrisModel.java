@@ -8,6 +8,7 @@ import com.Server.ServerMessages;
 import com.Tetris.Net.ClientPieceGenerator;
 import com.Tetris.Net.UpdateKind;
 import com.Tetris.Net.Updates.LineClear;
+import com.Tetris.Net.Updates.LinesSent;
 import com.Tetris.Net.Updates.NextPiece;
 import com.Tetris.Net.Updates.PiecePlaced;
 import com.Tetris.Net.Updates.Swap;
@@ -111,8 +112,8 @@ public class TetrisModel {
                 for (int i = 0; i < linesCleared.size(); i++) {
                     linesCleared.set(i, linesCleared.get(i) + nextJunkAmt);
                 }
-
                 moveMatrixUp(nextJunkAmt, hole);
+                sendJunkUpdate(nextJunkAmt, hole);
                 s = junkQueue.getp(new FormalField(Integer.class), new FormalField(Integer.class));
             }
         } catch (InterruptedException e) {
@@ -315,4 +316,11 @@ public class TetrisModel {
         }
     }
 
+    private void sendJunkUpdate(int linesSent, int hole) {
+        try {
+            netSpace.put(ServerMessages.update(playerID, UpdateKind.LinesSent, new LinesSent(linesSent, hole)));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

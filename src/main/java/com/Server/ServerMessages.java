@@ -29,7 +29,7 @@ public class ServerMessages {
                 new ActualField("update"),
                 new ActualField(ID),
                 new FormalField(UpdateKind.class),
-                new FormalField(Object.class)).getFields();
+                new FormalField(UpdateData.class)).getFields();
 
     }
 

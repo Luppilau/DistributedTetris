@@ -43,13 +43,10 @@ public class ClientPieceGenerator implements Runnable, PieceGenerator {
         while (true) {
             try {
                 internalSpace.get(new ActualField("piece request"));
+                internalSpace.getp(new ActualField("piece updated"));
                 netSpace.put(Message.pieceRequest(playerID, BUFFER_SIZE));
                 Tetrimino[] minos = (Tetrimino[]) netSpace.get(Message.tetriminoPackage(playerID).getFields())[2];
-                currentPack = nextPack;
                 nextPack = minos;
-                currentTetrimino = 0;
-                // System.out.println(Arrays.toString(currentPack));
-                // System.out.println(Arrays.toString(nextPack)+"\n");
                 internalSpace.put("piece updated");
             } catch (InterruptedException e) {
 
@@ -62,10 +59,13 @@ public class ClientPieceGenerator implements Runnable, PieceGenerator {
     public FallingPiece nextPiece() {
         if (currentTetrimino == BUFFER_SIZE) {
             try {
-                System.out.println("Taking piece");
+                if (nextPack == null) {
+                    internalSpace.get(new ActualField("piece updated"));
+                }
+                currentPack = nextPack;
+                nextPack = null; // Crash if too slow
+                currentTetrimino = 0;
                 internalSpace.put("piece request");
-                internalSpace.get(new ActualField("piece updated"));
-                System.out.println("Got piece");
             } catch (InterruptedException e) {
 
             }

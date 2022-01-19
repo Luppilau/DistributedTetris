@@ -8,7 +8,7 @@ public class Server {
     private static int LobbyIDC;
     private static int playerCount;
 
-    public static final String URI = "tcp://localhost:9090/";
+    public static final String URI = "tcp://82.211.223.13:9090/";
 
     public static void main(String[] args) throws InterruptedException {
         games = new SpaceRepository();

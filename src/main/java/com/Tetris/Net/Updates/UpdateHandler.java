@@ -28,6 +28,7 @@ public class UpdateHandler implements Runnable {
 
     public UpdateHandler(RemoteSpace net, int opponentID, int playerID, TetrisInstance clientInstance,
             OpponentInstance opponentInstance, Space junkQueue) {
+
         this.net = net;
         this.opponentID = opponentID;
         this.clientInstance = clientInstance;
@@ -50,7 +51,6 @@ public class UpdateHandler implements Runnable {
                         break;
                     case LineClear:
                         LineClear data1 = (LineClear) update[3];
-                        // TODO: Send some junk!
                         int nLines = data1.linesCleared.length;
                         if (nLines > 1 && nLines < 5) {
                             try {
@@ -68,14 +68,11 @@ public class UpdateHandler implements Runnable {
                                 }
                                 int hole = holeGenerator.nextInt(9);
                                 junkQueue.put(linesSent, hole);
-                                net.put(ServerMessages.update(playerID, UpdateKind.LinesSent,
-                                        new LinesSent(linesSent, hole)));
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
 
                         }
-                        System.out.println("Clearing lines " + Arrays.toString(data1.linesCleared));
                         opponentInstance.clearLines(data1.linesCleared);
                         break;
                     case LinesSent:
