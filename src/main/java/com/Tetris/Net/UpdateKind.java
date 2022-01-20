@@ -6,4 +6,5 @@ public enum UpdateKind {
     PiecePlaced,
     Swap,
     NextPiece,
+    GameOver,
 }

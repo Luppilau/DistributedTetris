@@ -32,7 +32,7 @@ public class TetrisScene extends BorderPane {
         right.setSpacing(25);
         Parent scoreBoard = FXMLLoader.load(getClass().getClassLoader().getResource("ScoreBoard.fxml"));
         Label score = (Label) scoreBoard.lookup("#score");
-        score.textProperty().bind(game.points.asString());
+        score.textProperty().bind(game.score.asString());
         Label lines = (Label) scoreBoard.lookup("#lines");
         lines.textProperty().bind(game.lines.asString());
         Label level = (Label) scoreBoard.lookup("#level");

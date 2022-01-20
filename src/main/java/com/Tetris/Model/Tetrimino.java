@@ -34,4 +34,27 @@ public enum Tetrimino {
                 return Color.valueOf("#FFFFFF");
         }
     }
+
+    public static Color getGreyColor(Tetrimino piece) {
+        switch (piece) {
+            case I:
+                return Color.valueOf("#a2a2a2");
+            case O:
+                return Color.valueOf("#9c9c9c");
+            case T:
+                return Color.valueOf("#aeaeae");
+            case S:
+                return Color.valueOf("#424242");
+            case Z:
+                return Color.valueOf("#686868");
+            case J:
+                return Color.valueOf("#797979");
+            case L:
+                return Color.valueOf("#828282");
+            case TRASH:
+                return Color.valueOf("#878b91");
+            default:
+                return Color.valueOf("#FFFFFF");
+        }
+    }
 }

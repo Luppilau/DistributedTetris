@@ -42,4 +42,21 @@ public class OpponentInstance {
     public void nextPiece(Tetrimino type) {
         scene.nextPiece.setPiece(FallingPiece.newFallingPiece(type));
     }
+
+    public void setScore(int score) {
+        model.setScore(score);
+    }
+
+    public void setLevel(int level) {
+        model.setLevel(level);
+    }
+
+    public void incrementLines(int length) {
+        model.incrementLines(length);
+    }
+
+    public void endGame() {
+        model.hasEnded = true;
+        canvas.renderOpponent(model);
+    }
 }

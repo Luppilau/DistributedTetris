@@ -78,7 +78,7 @@ public class MainMenu extends Scene {
                 int gameID = (int) sessionDetails[1];
                 int playerID = (int) sessionDetails[2];
                 int opponentID = (int) sessionDetails[3];
-                System.out.println("Got playerID: " + playerID + "and gameID: " + gameID);
+                System.out.println("Got playerID: " + playerID + " and gameID: " + gameID);
 
                 try {
                     String URI = Server.getURI(ip, gameID);

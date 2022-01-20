@@ -72,7 +72,11 @@ public class TetrisCanvas extends Canvas {
                 if (game.matrix[x][y] == null) {
                     continue;
                 }
-                context.setFill(Tetrimino.getColor(game.matrix[x][y]));
+                if (game.hasEnded) {
+                    context.setFill(Tetrimino.getGreyColor(game.matrix[x][y]));
+                } else {
+                    context.setFill(Tetrimino.getColor(game.matrix[x][y]));
+                }
                 paintSquareWithBorder(x, y);
             }
         }

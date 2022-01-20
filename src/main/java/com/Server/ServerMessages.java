@@ -23,14 +23,14 @@ public class ServerMessages {
     public static final Template GameEndTemplate = new Template(
             new ActualField("final score"),
             new FormalField(Integer.class), // PlayerID
-            new FormalField(Integer.class)); //final score
+            new FormalField(Integer.class)); // final score
 
     public static final TemplateField[] updateTemplate(int ID) {
         return new Template(
                 new ActualField("update"),
-                new ActualField(ID),   //PlayerID
-                new FormalField(UpdateKind.class), //UpdateKind
-                new FormalField(UpdateData.class)).getFields(); //UpdateData
+                new ActualField(ID), // PlayerID
+                new FormalField(UpdateKind.class), // UpdateKind
+                new FormalField(UpdateData.class)).getFields(); // UpdateData
 
     }
 
