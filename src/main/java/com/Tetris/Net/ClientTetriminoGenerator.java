@@ -1,6 +1,6 @@
 package com.Tetris.Net;
 
-import com.Tetris.Model.Tetriminos.FallingPiece;
+import com.Tetris.Model.Tetriminos.FallingTetrimino;
 import com.Tetris.Model.Generators.TetriminoGenerator;
 import com.Tetris.Model.Tetriminos.Tetrimino;
 import org.jspace.ActualField;
@@ -8,6 +8,17 @@ import org.jspace.RemoteSpace;
 import org.jspace.SequentialSpace;
 import org.jspace.Space;
 
+/*
+This class functions as a buffer betwwen the net-space and the internal game model
+Here is maintained a buffer of two BUFFER_SIZE sized arrays of tetraminos.
+
+When a tetramino is needed, we first see if there are any in the currentPack, if not 
+then we send a request for more and begin taking form nextPack. 
+when a request is sent in the internal space, the run() method catches the request and 
+sends a request to the server generator for a new pack. When this pack arrives nextPack is replaced with this new package.
+
+
+*/
 public class ClientTetriminoGenerator implements Runnable, TetriminoGenerator {
     private static final int BUFFER_SIZE = 7;
 
@@ -26,10 +37,11 @@ public class ClientTetriminoGenerator implements Runnable, TetriminoGenerator {
         internalSpace = new SequentialSpace();
 
         try {
-            netSpace.put(Message.pieceRequest(playerID, BUFFER_SIZE));
-            netSpace.put(Message.pieceRequest(playerID, BUFFER_SIZE));
-            Tetrimino[] minos1 = (Tetrimino[]) netSpace.get(Message.tetriminoPackage(playerID).getFields())[2];
-            Tetrimino[] minos2 = (Tetrimino[]) netSpace.get(Message.tetriminoPackage(playerID).getFields())[2];
+            // Fill up the buffer before the game starts
+            netSpace.put(Messages.pieceRequest(playerID, BUFFER_SIZE));
+            netSpace.put(Messages.pieceRequest(playerID, BUFFER_SIZE));
+            Tetrimino[] minos1 = (Tetrimino[]) netSpace.get(Messages.tetriminoPackage(playerID).getFields())[2];
+            Tetrimino[] minos2 = (Tetrimino[]) netSpace.get(Messages.tetriminoPackage(playerID).getFields())[2];
             currentPack = minos1;
             nextPack = minos2;
         } catch (InterruptedException e) {
@@ -38,14 +50,19 @@ public class ClientTetriminoGenerator implements Runnable, TetriminoGenerator {
 
     }
 
+    // Runs in parallel with the actual game
     @Override
     public void run() {
         while (true) {
             try {
+                // Get an internal request
                 internalSpace.get(new ActualField("piece request"));
+                // pull out any old "piece updated" message
                 internalSpace.getp(new ActualField("piece updated"));
-                netSpace.put(Message.pieceRequest(playerID, BUFFER_SIZE));
-                Tetrimino[] minos = (Tetrimino[]) netSpace.get(Message.tetriminoPackage(playerID).getFields())[2];
+                // put a request
+                netSpace.put(Messages.pieceRequest(playerID, BUFFER_SIZE));
+                // Update with new tetraminos
+                Tetrimino[] minos = (Tetrimino[]) netSpace.get(Messages.tetriminoPackage(playerID).getFields())[2];
                 nextPack = minos;
                 internalSpace.put("piece updated");
             } catch (InterruptedException e) {
@@ -55,13 +72,17 @@ public class ClientTetriminoGenerator implements Runnable, TetriminoGenerator {
         }
     }
 
+    // Called by the game
     @Override
-    public FallingPiece nextPiece() {
+    public FallingTetrimino nextPiece() {
         if (currentTetrimino == BUFFER_SIZE) {
+            // If none remain in currentPack try to take the next
             try {
                 if (nextPack == null) {
+                    // If none are in the nextPack wait for the internalSpace to update nextPack
                     internalSpace.get(new ActualField("piece updated"));
                 }
+                // Replace currentpack and send an internal piece request
                 currentPack = nextPack;
                 nextPack = null; // Crash if too slow
                 currentTetrimino = 0;
@@ -72,6 +93,6 @@ public class ClientTetriminoGenerator implements Runnable, TetriminoGenerator {
         }
         Tetrimino out = currentPack[currentTetrimino];
         currentTetrimino++;
-        return FallingPiece.newFallingPiece(out);
+        return FallingTetrimino.newFallingPiece(out);
     }
 }

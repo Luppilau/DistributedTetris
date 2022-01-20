@@ -1,7 +1,7 @@
 package com.Tetris.Model;
 
 import com.Tetris.Controller.CustomEvent;
-import com.Tetris.Model.Tetriminos.FallingPiece;
+import com.Tetris.Model.Tetriminos.FallingTetrimino;
 import com.Tetris.Model.Tetriminos.Pair;
 import com.Tetris.Model.Tetriminos.Rotation;
 import com.Tetris.Model.Tetriminos.Tetrimino;
@@ -10,7 +10,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.Server.ServerMessages;
+import com.Tetris.Net.Messages;
 import com.Tetris.Net.ClientTetriminoGenerator;
 import com.Tetris.Net.Updates.UpdateKind;
 import com.Tetris.Net.Updates.UpdateDataTypes.LineClear;
@@ -28,27 +28,45 @@ import javafx.scene.canvas.Canvas;
 
 import static java.lang.Math.max;
 
+/*
+
+This class contains all information about the current game of tetris.
+
+Over time it has become a bit bloated and multi-functional (Super-class)
+It both handles running the game and sending out updates to the opponent
+it also sends events to the surrounding UI, which is why it imports the javafx Canvas. 
+
+It needs a refactor, but we don't have the time.
+
+*/
 public class TetrisModel {
-    public Space junkQueue;
-    private RemoteSpace netSpace;
+    public Space junkQueue; // Internal communication channel between this and UpdateHandler used to give
+                            // junk at the right time
+    private RemoteSpace netSpace; // The space residing in the Server process, used to send updates to the
+                                  // opponent
 
-    private int playerID;
+    private int playerID; // The ID of the player that plays on this model
 
-    public Tetrimino[][] matrix = new Tetrimino[10][40];
-    public FallingPiece current;
+    public Tetrimino[][] matrix = new Tetrimino[10][40]; // The game board
+    public FallingTetrimino current; // The current piece to fall
 
+    // SimpleIntegerProperty updates the UI automatically
     public SimpleIntegerProperty level;
     public SimpleIntegerProperty lines;
     public SimpleIntegerProperty score;
 
     public boolean hasEnded = false;
+    // A list of the last lines cleared
     public ArrayList<Integer> linesCleared = new ArrayList<>(4);
 
-    private FallingPiece swap;
-    private FallingPiece nextPiece;
+    private FallingTetrimino swap;
+    private FallingTetrimino nextPiece;
     private boolean hasSwapped = false;
+
+    // The canvas on which the game is rendered, used to send Events to TetrisCanvas
     private Canvas canvas;
 
+    // TetriminoGenerator and the thread that runs it.
     private ClientTetriminoGenerator generator;
     private Thread generatorThread;
 
@@ -59,6 +77,7 @@ public class TetrisModel {
 
         this.junkQueue = junkQueue;
 
+        // Create a thread and start it, save the handle for stopping the thread later.
         generatorThread = new Thread(generator);
         generatorThread.start();
 
@@ -78,7 +97,7 @@ public class TetrisModel {
         this.canvas = canvas;
     }
 
-    // Move the current falling piece one step down,
+    // Progress the game by moving the current falling piece one step down,
     // If it collides with the current stack, lock it in and run line detection and
     // if applicable
     // score updates.
@@ -143,9 +162,9 @@ public class TetrisModel {
     private void emptyJunkQueue() {
         // Receive all junk-updates
         try {
-            Object s = junkQueue.getp(new FormalField(Integer.class), new FormalField(Integer.class));
             // Basic implementation of queryAllp as it isn't part of the jspace
             // specification
+            Object s = junkQueue.getp(new FormalField(Integer.class), new FormalField(Integer.class));
             while (s != null) {
                 Integer nextJunkAmt = (Integer) ((Object[]) s)[0];
                 Integer hole = (Integer) ((Object[]) s)[1];
@@ -166,6 +185,7 @@ public class TetrisModel {
         }
     }
 
+    // Hacky solution to get the amount of incoming junk-lines for use in the UI
     public int getCountIncomingJunk() {
         int out = 0;
         try {
@@ -180,6 +200,9 @@ public class TetrisModel {
         return out;
     }
 
+    // Write the current falling piece into the matrix, locking it in place.
+    // If the piece locks in above the visible matrix (y >= 21), then end the game
+    // and send updats to whom it may concern
     private void lockPiece() {
         sendPieceUpdate(current);
         for (Pair sq : current.getSquares()) {
@@ -189,16 +212,18 @@ public class TetrisModel {
             if (sq.y >= 21) {
                 hasEnded = true;
                 sendGameEndUpdate();
+                generatorThread.interrupt(); // Stop listening for new tetraminorequest
                 return;
             }
         }
         current = nextPiece;
         nextPiece = generator.nextPiece();
         sendNextPieceUpdate(nextPiece.getType());
-        canvas.fireEvent(new CustomEvent(CustomEvent.NextPieceEvent));
+        canvas.fireEvent(new CustomEvent(CustomEvent.NextPieceEvent)); // Update UI
 
     }
 
+    // Next 6 methods self documenting
     public void rotateRight() {
         current.rotateRight(matrix);
     }
@@ -235,6 +260,7 @@ public class TetrisModel {
         current.move(0, 1);
     }
 
+    // Gets the position of the "ghost" tetramino
     public Pair getGhostPosition() {
         // Copy of old pos
         Pair ghost = new Pair(current.pos.x, current.pos.y);
@@ -248,12 +274,13 @@ public class TetrisModel {
         return ghostPos;
     }
 
+    // Swap swap-piece with current piece
     public void swap() {
         if (!hasSwapped) {
-            FallingPiece temp;
+            FallingTetrimino temp;
             if (swap != null) {
                 temp = swap;
-                temp.pos = new Pair(FallingPiece.DEFAULTX, FallingPiece.DEFAULTY);
+                temp.pos = new Pair(FallingTetrimino.DEFAULTX, FallingTetrimino.DEFAULTY);
             } else {
                 temp = nextPiece;
                 nextPiece = generator.nextPiece();
@@ -267,6 +294,7 @@ public class TetrisModel {
         }
     }
 
+    // Move everything in the matrix down starting at y and moving amount squares
     protected void moveMatrixDown(int y, int amount) {
 
         for (int i = y; i < 39; i++) {
@@ -280,6 +308,8 @@ public class TetrisModel {
         }
     }
 
+    // Move everything in the matrix up, putting junk where nothing was before.
+    // Except in hole, there should be null so the client can clear the lines
     public void moveMatrixUp(int amount, int hole) {
         for (int i = 0; i < 10; i++) {
             for (int j = 39; j >= 0; j--) {
@@ -296,6 +326,7 @@ public class TetrisModel {
         }
     }
 
+    // Formula taken from tetris wiki see tick()
     private int calculateScore(int n) {
         assert (n >= 0 && n <= 4);
         int p = 0;
@@ -316,20 +347,22 @@ public class TetrisModel {
         return p * (level.getValue() + 1);
     }
 
-    public FallingPiece getSwap() {
+    public FallingTetrimino getSwap() {
         return swap;
     }
 
-    public FallingPiece getNextPiece() {
+    public FallingTetrimino getNextPiece() {
         return nextPiece;
     }
 
+    // Remaining methods send updates to the opponent with the right formatting as
+    // dictated by the Message class
     private void sendGameEndUpdate() {
         // Notifies the server and the opponent that the game has ended
         try {
-            netSpace.put(ServerMessages.update(playerID, UpdateKind.GameOver, new UpdateData()));
-            netSpace.put(ServerMessages.gameEndMessage(playerID, score.get()));
-            generatorThread.interrupt();
+            netSpace.put(Messages.update(playerID, UpdateKind.GameOver, new UpdateData()));
+            netSpace.put(Messages.gameEndMessage(playerID, score.get()));
+            ;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -338,15 +371,15 @@ public class TetrisModel {
     private void sendLinesClearedUpdate(int[] linesCleared, int score, int level) {
         try {
             netSpace.put(
-                    ServerMessages.update(playerID, UpdateKind.LineClear, new LineClear(linesCleared, score, level)));
+                    Messages.update(playerID, UpdateKind.LineClear, new LineClear(linesCleared, score, level)));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void sendPieceUpdate(FallingPiece piece) {
+    private void sendPieceUpdate(FallingTetrimino piece) {
         try {
-            netSpace.put(ServerMessages.update(playerID, UpdateKind.PiecePlaced, new PiecePlaced(piece)));
+            netSpace.put(Messages.update(playerID, UpdateKind.PiecePlaced, new PiecePlaced(piece)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -354,7 +387,7 @@ public class TetrisModel {
 
     private void sendSwapUpdate(Tetrimino type) {
         try {
-            netSpace.put(ServerMessages.update(playerID, UpdateKind.Swap, new Swap(type)));
+            netSpace.put(Messages.update(playerID, UpdateKind.Swap, new Swap(type)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -362,7 +395,7 @@ public class TetrisModel {
 
     private void sendNextPieceUpdate(Tetrimino type) {
         try {
-            netSpace.put(ServerMessages.update(playerID, UpdateKind.NextPiece, new NextPiece(type)));
+            netSpace.put(Messages.update(playerID, UpdateKind.NextPiece, new NextPiece(type)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -370,7 +403,7 @@ public class TetrisModel {
 
     private void sendJunkUpdate(int linesSent, int hole) {
         try {
-            netSpace.put(ServerMessages.update(playerID, UpdateKind.LinesSent, new LinesSent(linesSent, hole)));
+            netSpace.put(Messages.update(playerID, UpdateKind.LinesSent, new LinesSent(linesSent, hole)));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

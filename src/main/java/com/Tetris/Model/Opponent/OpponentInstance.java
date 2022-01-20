@@ -1,12 +1,15 @@
 package com.Tetris.Model.Opponent;
 
-import com.Tetris.Model.Tetriminos.FallingPiece;
+import com.Tetris.Model.Tetriminos.FallingTetrimino;
 import com.Tetris.Model.Tetriminos.Pair;
 import com.Tetris.Model.Tetriminos.Rotation;
 import com.Tetris.Model.Tetriminos.Tetrimino;
 import com.Tetris.View.TetrisCanvas;
 import com.Tetris.View.TetrisScene;
 
+/*
+    Handler for view of opponent board on client screen. 
+*/
 public class OpponentInstance {
     private TetrisCanvas canvas;
     private OpponentModel model;
@@ -24,7 +27,6 @@ public class OpponentInstance {
         canvas.renderOpponent(model);
     }
 
-    // lines must be sorted greatest to smallest
     public void clearLines(int[] lines) {
         model.clearLines(lines);
         canvas.renderOpponent(model);
@@ -36,11 +38,11 @@ public class OpponentInstance {
     }
 
     public void swap(Tetrimino type) {
-        scene.swapPiece.setPiece(FallingPiece.newFallingPiece(type));
+        scene.swapPiece.setPiece(FallingTetrimino.newFallingPiece(type));
     }
 
     public void nextPiece(Tetrimino type) {
-        scene.nextPiece.setPiece(FallingPiece.newFallingPiece(type));
+        scene.nextPiece.setPiece(FallingTetrimino.newFallingPiece(type));
     }
 
     public void setScore(int score) {

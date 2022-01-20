@@ -2,8 +2,14 @@ package com.Tetris.Model.Generators;
 
 import java.util.Random;
 import com.Tetris.Model.Tetriminos.*;
-import com.Tetris.Model.Tetriminos.FallingPieces.*;
+import com.Tetris.Model.Tetriminos.FallingTetriminos.*;
 
+/*
+This object generates a new tetramino each time it is asked to do so
+The tetraminos outputted are completely random (really pseado-random)
+
+This is non-standard as all versions of tetris use other generators be it the 7-bag system or something else
+*/
 public class RandomTetriminoGenerator implements TetriminoGenerator {
     Random r;
 
@@ -15,7 +21,7 @@ public class RandomTetriminoGenerator implements TetriminoGenerator {
         r = new Random(seed);
     }
 
-    public FallingPiece nextPiece() {
+    public FallingTetrimino nextPiece() {
         int next = r.nextInt(7);
         switch (next) {
             case 0:

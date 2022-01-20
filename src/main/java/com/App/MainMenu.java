@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import com.Server.Server;
-import com.Server.ServerMessages;
+import com.Tetris.Net.Messages;
 import com.Tetris.View.GameView;
 
 import org.jspace.RemoteSpace;
@@ -25,9 +25,8 @@ public class MainMenu extends Scene {
     Object[] sessionDetails;
 
     public MainMenu(Parent root, Stage stage) {
-        super(root,450,250);
+        super(root, 450, 250);
         this.stage = stage;
-
 
         TextField connectTextField = (TextField) root.lookup("#field");
         Button connectButton = (Button) root.lookup("#button");
@@ -57,14 +56,14 @@ public class MainMenu extends Scene {
         // Connect to the server and get private space for game.
 
         try {
-            space.put(ServerMessages.gameRequest());
+            space.put(Messages.gameRequest());
 
             Task<Void> gameSetUp = new Task<Void>() {
 
                 @Override
                 protected Void call() {
                     try {
-                        sessionDetails = space.get(ServerMessages.sessionDetails.getFields());
+                        sessionDetails = space.get(Messages.sessionDetails.getFields());
                         succeeded();
                     } catch (InterruptedException e) {
                         failed();
@@ -84,7 +83,7 @@ public class MainMenu extends Scene {
                 try {
                     String URI = Server.getURI(ip, gameID);
                     RemoteSpace game = new RemoteSpace(URI);
-                    game.put(ServerMessages.okMessage);
+                    game.put(Messages.okMessage);
                     GameView gameView = new GameView(gameRoot, game, playerID, opponentID);
                     stage.setScene(gameView);
                     stage.show();

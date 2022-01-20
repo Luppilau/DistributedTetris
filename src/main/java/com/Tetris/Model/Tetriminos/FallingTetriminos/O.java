@@ -1,10 +1,10 @@
-package com.Tetris.Model.Tetriminos.FallingPieces;
+package com.Tetris.Model.Tetriminos.FallingTetriminos;
 
-import com.Tetris.Model.Tetriminos.FallingPiece;
+import com.Tetris.Model.Tetriminos.FallingTetrimino;
 import com.Tetris.Model.Tetriminos.Pair;
 import com.Tetris.Model.Tetriminos.Tetrimino;
 
-public class O extends FallingPiece {
+public class O extends FallingTetrimino {
     private static final Pair[][] blocks = new Pair[][] {
             { new Pair(0, 0), new Pair(1, 0), new Pair(0, 1), new Pair(1, 1) },
     };

@@ -12,6 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+/*
+    Constructor for a single Tetris view, with "Swap" & "NextPiece" display, 
+    aswell as Scoreboard and gameboard window.  
+*/
 public class TetrisScene extends BorderPane {
     public TetriminoDisplayer swapPiece;
     public TetriminoDisplayer nextPiece;

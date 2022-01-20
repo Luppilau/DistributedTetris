@@ -1,5 +1,6 @@
 package com.Tetris.Model.Tetriminos;
 
+//Rotatino representation taken from standard notation from tetris wiki
 public enum Rotation {
     O, // 0
     R,

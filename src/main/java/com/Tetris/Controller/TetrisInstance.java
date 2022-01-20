@@ -16,8 +16,9 @@ The ending animation and line-clear animation also happens here.
 public class TetrisInstance extends AnimationTimer {
     private TetrisCanvas canvas;
     private TetrisModel game;
-    private State state; //Current state, are we in an animation or should the game progress?
-    private int frames = 0; //Counter that indicates how many frames should pass until the next update should occur
+    private State state; // Current state, are we in an animation or should the game progress?
+    private int frames = 0; // Counter that indicates how many frames should pass until the next update
+                            // should occur
 
     // Delayed Auto Shift variables
     // When a button is held, we want the pieces to move quickly
@@ -32,32 +33,33 @@ public class TetrisInstance extends AnimationTimer {
         this.state = State.Tick;
     }
 
-    //This function is called 60 times a second and is responsible for doing what needs to be done in order to render the next frame.
+    // This function is called 60 times a second and is responsible for doing what
+    // needs to be done in order to render the next frame.
     @Override
     public void handle(long now) {
 
         processDAS();
 
-        //Simple state machine
-        //Tick: Progress the game as normal
+        // Simple state machine
+        // Tick: Progress the game as normal
         if (state == State.Tick) {
-            //Early return when nothing should happen
+            // Early return when nothing should happen
             if (frames > 0) {
                 frames--;
                 return;
             }
-            //If it is time, let the game model know that is is time to "tick"
+            // If it is time, let the game model know that is is time to "tick"
             game.tick();
             if (game.hasEnded) {
-                //If the game ended on this tick, play the ending animation
+                // If the game ended on this tick, play the ending animation
                 frames = 100;
                 state = State.EndAnimation;
             } else if (!game.linesCleared.isEmpty()) {
-                //If any lines were cleared, play the clearAnimation
+                // If any lines were cleared, play the clearAnimation
                 frames = clearAnimationFrames;
                 state = State.ClearAnimation;
             } else {
-                //Otherwise render the updated game state
+                // Otherwise render the updated game state
                 canvas.render(game);
                 updateFramesToTick();
             }
@@ -76,19 +78,20 @@ public class TetrisInstance extends AnimationTimer {
             }
 
         } else if (state == State.HasEnded) {
-            //Do nothing, the game is over.
+            // Do nothing, the game is over.
         }
     }
 
+    // Delayes Auto Shift = DAS
     private void processDAS() {
-        final int dasDelay = 12; //How many frames until DAS starts
-        final int dasTime = 3; //Frames between moves
+        final int dasDelay = 12; // How many frames until DAS starts
+        final int dasTime = 3; // Frames between moves
 
-        //If no key is pressed, stop
+        // If no key is pressed, stop
         if (keyPressed == null) {
             return;
         }
-        //Realize DAS
+        // Realize DAS
         if (keyPressedFrames == 0 || (keyPressedFrames >= dasDelay && (keyPressedFrames - dasDelay) % dasTime == 0)) {
             switch (keyPressed) {
                 case RIGHT:
@@ -104,13 +107,14 @@ public class TetrisInstance extends AnimationTimer {
                     break;
             }
         }
-        //Update the amount of frames with button press
+        // Update the amount of frames with button press
         keyPressedFrames += (keyPressed != null) ? 1 : 0;
     }
 
-    //Following 7 functions are self documenting.
-    //As we only render in handle() when the game "ticks", we need to render when the player changes something.
-    //Functions follow format: update model then render update
+    // Following 7 functions are self documenting.
+    // As we only render in handle() when the game "ticks", we need to render when
+    // the player changes something.
+    // Functions follow format: update model then render update
     public void rotateRight() {
         if (state == State.Tick) {
             game.rotateRight();
@@ -161,7 +165,6 @@ public class TetrisInstance extends AnimationTimer {
         }
     }
 
-    //Progress the clear animation
     private void progressClearAnimation() {
         final int delayBefore = 10;
         final int delayAfter = 10;
@@ -170,6 +173,8 @@ public class TetrisInstance extends AnimationTimer {
             frames--;
         } else if (frames < delayAfter) {
             frames--;
+            // Draw blank at all cleared lines, one block at a time starting from the center
+            // in 5 frame intervals
         } else if ((frames - delayAfter) % 5 == 0) {
             int currentFrame = (frames - delayAfter);
             for (int clearedLine : game.linesCleared) {
@@ -181,20 +186,21 @@ public class TetrisInstance extends AnimationTimer {
         }
     }
 
-    //Progress the ending animation,
     private void progressEndAnimation() {
+        // Draw a new line of junk every fifth frame until completion
         if (frames % 5 == 0) {
             canvas.drawGrey(frames / 5 - 1);
         }
         frames--;
     }
 
-    //As the game gets faster as the levels progress, we need different frame timings, these are here
+    // As the game gets faster as the levels progress, we need different frame
+    // timings, these are here
     private void updateFramesToTick() {
-        //Until level 29 the timings are above 1 frame
+        // Until level 29 the timings are above 1 frame
         final int[] times = { 48, 43, 38, 33, 28, 23, 18, 13, 8, 6, 5, 5, 5, 4, 4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2,
                 2, 2 };
-        //after, there is a single frame between each "drop"
+        // after, there is a single frame between each "drop"
         if (game.level.getValue() >= 29) {
             frames = 1;
         } else {

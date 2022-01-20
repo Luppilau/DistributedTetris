@@ -9,6 +9,9 @@ import com.Tetris.Model.Tetriminos.Tetrimino;
 import com.Tetris.Model.TetrisModel;
 import com.Tetris.Model.Opponent.OpponentModel;
 
+/*
+    Main rendering of a tetrisboard in JavaFx
+*/
 public class TetrisCanvas extends Canvas {
     public final double squareUnit;
     private static final double defaultHeight = 500;
@@ -23,12 +26,6 @@ public class TetrisCanvas extends Canvas {
     public TetrisCanvas() {
         super(defaultWidth, defaultHeight);
         squareUnit = defaultWidth / 10;
-        context = getGraphicsContext2D();
-    }
-
-    public TetrisCanvas(double width, double height) {
-        super(width, height);
-        squareUnit = width / 10;
         context = getGraphicsContext2D();
     }
 

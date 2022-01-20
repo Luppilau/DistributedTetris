@@ -1,6 +1,6 @@
 package com.Tetris.View;
 
-import com.Tetris.Model.Tetriminos.FallingPiece;
+import com.Tetris.Model.Tetriminos.FallingTetrimino;
 import com.Tetris.Model.Tetriminos.Pair;
 import com.Tetris.Model.Tetriminos.Tetrimino;
 
@@ -8,10 +8,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/*
+    Window for displaying a single tetrimino.
+    Used for "Swap" and "NextPiece" display
+*/
 public class TetriminoDisplayer extends Canvas {
     private static final int WINDOWSIZE = 4;
     private final double squareUnit;
-    private FallingPiece piece;
+    private FallingTetrimino piece;
     private GraphicsContext context;
 
     public TetriminoDisplayer(double squareUnit) {
@@ -48,7 +52,7 @@ public class TetriminoDisplayer extends Canvas {
         }
     }
 
-    public void setPiece(FallingPiece piece) {
+    public void setPiece(FallingTetrimino piece) {
         this.piece = piece;
         render();
     }

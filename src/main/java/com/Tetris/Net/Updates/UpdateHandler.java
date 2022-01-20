@@ -2,8 +2,7 @@ package com.Tetris.Net.Updates;
 
 import java.util.Random;
 
-import com.Server.ServerMessages;
-import com.Tetris.Controller.TetrisInstance;
+import com.Tetris.Net.Messages;
 import com.Tetris.Model.Opponent.OpponentInstance;
 
 import com.Tetris.Net.Updates.UpdateDataTypes.*;
@@ -12,24 +11,25 @@ import org.jspace.Space;
 
 import javafx.application.Platform;
 
+/*
+This runnable class should run in parallel with the actual game and functions as the main opponent-view updater
+it also sends junk to the junkQueue in the TetrisModel
+*/
 public class UpdateHandler implements Runnable {
     private RemoteSpace net;
     private Space junkQueue;
 
     private int opponentID;
-    private int playerID;
 
     private Random holeGenerator;
 
-    private TetrisInstance clientInstance;
     private OpponentInstance opponentInstance;
 
-    public UpdateHandler(RemoteSpace net, int opponentID, int playerID, TetrisInstance clientInstance,
+    public UpdateHandler(RemoteSpace net, int opponentID, int playerID,
             OpponentInstance opponentInstance, Space junkQueue) {
 
         this.net = net;
         this.opponentID = opponentID;
-        this.clientInstance = clientInstance;
         this.opponentInstance = opponentInstance;
         this.junkQueue = junkQueue;
         holeGenerator = new Random();
@@ -37,9 +37,11 @@ public class UpdateHandler implements Runnable {
 
     @Override
     public void run() {
+        // Function is simple
+        // Get an update from the opponent and react accordingly
         while (true) {
             try {
-                Object[] update = net.get(ServerMessages.updateTemplate(opponentID));
+                Object[] update = net.get(Messages.updateTemplate(opponentID));
                 UpdateKind kind = (UpdateKind) update[2];
                 // Get the update
                 switch (kind) {
@@ -76,8 +78,12 @@ public class UpdateHandler implements Runnable {
         }
     }
 
+    // The most complicated reaction
     private void handleLineClear(LineClear data) {
         int nLines = data.linesCleared.length;
+        // If the opponent cleared 2 or 3 or 4 lines, the client nedds junk when the
+        // next piece is placed
+        // Find out how many and put them in the junkQueue
         if (nLines > 1 && nLines < 5) {
             try {
                 int linesSent = 0;
@@ -99,6 +105,9 @@ public class UpdateHandler implements Runnable {
             }
 
         }
+        // Now update the opponent-view with the cleared lines
+        // Later score and level was tacked on so the client can see the standings in
+        // real time
         // Only the JavaFX thread may update the UI, therefore lines,score and level
         // updates must be handled by this.
         Platform.runLater(new Runnable() {

@@ -63,21 +63,42 @@
 
         <plugin>
           <artifactId>maven-assembly-plugin</artifactId>
-          <configuration>
-              <archive>
-                  <manifest>
-                      <addClasspath>true</addClasspath>
-                      <classpathPrefix>lib/</classpathPrefix>
-                      <mainClass>com.App.Main</mainClass>
-                  </manifest>
-              </archive>
-              <descriptorRefs>
-                  <descriptorRef>jar-with-dependencies</descriptorRef>
-              </descriptorRefs>
-          </configuration>
             <executions>
                 <execution>
-                    <id>make-my-jar-with-dependencies</id>
+                    <id>client</id>
+                    <configuration>
+                        <appendAssemblyId>false</appendAssemblyId>
+                        <archive>
+                            <manifest>
+                              <mainClass>com.App.Main</mainClass>
+                            </manifest>
+                        </archive>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                        <finalName>Client</finalName>
+                    </configuration>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>single</goal>
+                    </goals>
+                </execution>
+
+                <execution>
+                    <id>server</id>
+                    <configuration>
+                        <appendAssemblyId>false</appendAssemblyId>
+                        <archive>
+                            <manifest>
+                                <mainClass>com.Server.Server</mainClass>
+                            </manifest>
+                        </archive>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                        <!-- <finalName>${project.artifactId} - Server</finalName> -->
+                        <finalName>Server</finalName>
+                    </configuration>
                     <phase>package</phase>
                     <goals>
                         <goal>single</goal>

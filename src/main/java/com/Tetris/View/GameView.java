@@ -18,6 +18,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 
+/*
+    Root scene of game view.
+    Assigns event listeners to react to user input
+*/
 public class GameView extends Scene {
     private Thread updateHandlerHandle;
     private TetrisModel game;
@@ -46,7 +50,7 @@ public class GameView extends Scene {
         instance.start();
 
         updateHandlerHandle = new Thread(
-                new UpdateHandler(space, opponentID, playerID, instance, oppInstance, junkQueue));
+                new UpdateHandler(space, opponentID, playerID, oppInstance, junkQueue));
         updateHandlerHandle.start();
 
         this.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent key) -> handleKeyEvent(key));

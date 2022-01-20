@@ -1,3 +1,6 @@
+
+// No sense in this file.
+// We put what was needed to make the project compile
 module com.App {
     requires transitive common;
     requires transitive javafx.graphics;
@@ -6,17 +9,17 @@ module com.App {
     requires java.sql;
 
     opens com.Tetris.Net.Updates;
+    opens com.Tetris.Net.Updates.UpdateDataTypes;
 
     exports com.App;
-    exports com.Tetris.Model;
-    exports com.Tetris.Model.Opponent;
     exports com.Tetris.View;
+    exports com.Tetris.Controller;
     exports com.Tetris.Net;
     exports com.Tetris.Net.Updates;
-    exports com.Tetris.Model.Tetriminos;
-    exports com.Tetris.Controller;
-    exports com.Tetris.Model.Tetriminos.FallingPieces;
-    exports com.Tetris.Model.Generators;
     exports com.Tetris.Net.Updates.UpdateDataTypes;
-    opens com.Tetris.Net.Updates.UpdateDataTypes;
+    exports com.Tetris.Model;
+    exports com.Tetris.Model.Opponent;
+    exports com.Tetris.Model.Generators;
+    exports com.Tetris.Model.Tetriminos;
+    exports com.Tetris.Model.Tetriminos.FallingTetriminos;
 }

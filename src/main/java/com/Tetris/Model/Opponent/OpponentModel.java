@@ -1,12 +1,16 @@
 package com.Tetris.Model.Opponent;
 
-import com.Tetris.Model.Tetriminos.FallingPiece;
+import com.Tetris.Model.Tetriminos.FallingTetrimino;
 import com.Tetris.Model.Tetriminos.Pair;
 import com.Tetris.Model.Tetriminos.Rotation;
 import com.Tetris.Model.Tetriminos.Tetrimino;
 import com.Tetris.Model.TetrisModel;
 
 import javafx.scene.canvas.Canvas;
+
+/*
+    Model for opponent board view, on player screen.
+*/
 
 public class OpponentModel extends TetrisModel {
 
@@ -15,7 +19,7 @@ public class OpponentModel extends TetrisModel {
     }
 
     public void placePiece(Tetrimino kind, Pair pos, Rotation rot) {
-        FallingPiece piece = FallingPiece.newFallingPiece(kind);
+        FallingTetrimino piece = FallingTetrimino.newFallingPiece(kind);
         piece.setRotation(rot);
         piece.setLocation(pos);
         for (Pair sq : piece.getSquares()) {
