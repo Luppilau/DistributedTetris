@@ -102,7 +102,6 @@ public class TetrisModel {
         }
 
         // Receive all junk-updates
-
         try {
             Object s = junkQueue.getp(new FormalField(Integer.class), new FormalField(Integer.class));
             while (s != null) {

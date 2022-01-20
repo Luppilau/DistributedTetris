@@ -7,10 +7,10 @@
     <list default="true" id="897a77d1-12a5-4494-af1b-af09b23ce3b2" name="Changes" comment="Server functional and clientmock functional">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/App/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/App/MainMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/TetrisInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/TetrisInstance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Server/ClientMock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Server/ClientMock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Server/GameThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Server/GameThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/TetrisModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/TetrisModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/ClientPieceGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/ClientPieceGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/View/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/View/GameView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +54,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
   </component>
-  <component name="RunManager" selected="Application.App">
+  <component name="RunManager" selected="Application.ClientMock">
     <configuration name="App" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.App.App" />
       <module name="DistributedTetris" />
@@ -150,9 +150,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.App" />
-        <item itemvalue="Application.Server" />
         <item itemvalue="Application.ClientMock" />
+        <item itemvalue="Application.Server" />
+        <item itemvalue="Application.App" />
         <item itemvalue="Application.RemoteHelloWorld" />
         <item itemvalue="JAR Application.DistributedTetris-1.0-SNAPSHOT-jar-with-dependencies.jar" />
       </list>
@@ -195,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1642505595911</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Server functional and clientmock functional">
+      <created>1642510314442</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1642510314442</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
