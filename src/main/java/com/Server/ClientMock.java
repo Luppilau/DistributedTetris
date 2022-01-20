@@ -6,9 +6,12 @@ import org.jspace.RemoteSpace;
 import java.io.IOException;
 
 public class ClientMock {
+    //The default testing-ip address used throughout the project
+    public static final String URI = "tcp://localhost:9090/";
+
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        RemoteSpace server = new RemoteSpace(Server.URI + "lobby" + "?keep");
+        RemoteSpace server = new RemoteSpace(URI + "lobby" + "?keep");
 
         server.put("game request");
         server.put("game request");
@@ -21,8 +24,8 @@ public class ClientMock {
         int gameID = (int) p1[1];
 
         System.out.println(p1ID + " " + p2ID + ": " + gameID);
-        RemoteSpace game = new RemoteSpace(Server.URI + "game" + gameID + "?keep");
-        System.out.println(Server.URI + "game" + gameID + "?keep");
+        RemoteSpace game = new RemoteSpace(URI + "game" + gameID + "?keep");
+        System.out.println(URI + "game" + gameID + "?keep");
         game.put(ServerMessages.okMessage);
         game.put(ServerMessages.okMessage);
         System.out.println("Sent the messages");

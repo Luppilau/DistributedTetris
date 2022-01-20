@@ -78,8 +78,6 @@ public class TetrisModel {
     // score updates.
     public void tick() {
 
-        // Take all junk from the junkQueue and update the junkIncoming variable.
-
         current.move(0, -1);
         // If not colliding return early
         if (!current.colliding(matrix)) {
@@ -138,6 +136,7 @@ public class TetrisModel {
     }
 
     private void emptyJunkQueue() {
+        // Receive all junk-updates
         try {
             Object s = junkQueue.getp(new FormalField(Integer.class), new FormalField(Integer.class));
             // Basic implementation of queryAllp as it isn't part of the jspace
