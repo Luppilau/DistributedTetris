@@ -5,6 +5,9 @@
     /* -fx-background: #2f4f4f; */
     -fx-background: #E5E5E5;
     -fx-background-image: url('mainmenu.png');
+    -fx-background-repeat: no-repeat;
+        -fx-background-size: 450 250;
+        -fx-background-position: center center;
 }
 
 .error-text{
