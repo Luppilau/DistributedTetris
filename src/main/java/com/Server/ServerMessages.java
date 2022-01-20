@@ -9,6 +9,7 @@ import org.jspace.Template;
 import org.jspace.TemplateField;
 import org.jspace.Tuple;
 
+//Template and tuple generators to ensure well-formed tuples always.
 public class ServerMessages {
     public static final Template okTemplate = new Template(new ActualField("ok"));
     public static final Object[] okMessage = new Tuple("ok").getTuple();
@@ -21,15 +22,15 @@ public class ServerMessages {
 
     public static final Template GameEndTemplate = new Template(
             new ActualField("final score"),
-            new FormalField(Integer.class),
-            new FormalField(Integer.class));
+            new FormalField(Integer.class), // PlayerID
+            new FormalField(Integer.class)); //final score
 
     public static final TemplateField[] updateTemplate(int ID) {
         return new Template(
                 new ActualField("update"),
-                new ActualField(ID),
-                new FormalField(UpdateKind.class),
-                new FormalField(UpdateData.class)).getFields();
+                new ActualField(ID),   //PlayerID
+                new FormalField(UpdateKind.class), //UpdateKind
+                new FormalField(UpdateData.class)).getFields(); //UpdateData
 
     }
 
