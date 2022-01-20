@@ -13,7 +13,7 @@
 
     <HBox> 
         <children>
-            <TextField fx:id="field" prefWidth="200.0" text="localhost" />
+            <TextField fx:id="field" prefWidth="200.0" text="localhost:9090" />
             <Button fx:id="button" text="Connect" />
         </children>
     </HBox>
