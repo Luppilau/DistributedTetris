@@ -1,4 +1,4 @@
-package com.Tetris.Model;
+package com.Tetris.Model.Tetriminos;
 
 import javafx.scene.paint.Color;
 

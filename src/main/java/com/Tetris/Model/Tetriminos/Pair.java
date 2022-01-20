@@ -1,4 +1,4 @@
-package com.Tetris.Model;
+package com.Tetris.Model.Tetriminos;
 
 public class Pair {
     public int x;

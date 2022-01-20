@@ -1,7 +1,7 @@
 package com.Server;
 
-import com.Tetris.Model.RandomTetraminoGenerator;
-import com.Tetris.Model.Tetrimino;
+import com.Tetris.Model.Generators.RandomTetriminoGenerator;
+import com.Tetris.Model.Tetriminos.Tetrimino;
 import com.Tetris.Net.Message;
 
 import org.jspace.*;
@@ -74,16 +74,16 @@ class TetriminoGenerator implements Runnable {
     private int p1;
     private int p2;
 
-    private RandomTetraminoGenerator pieceGen1;
-    private RandomTetraminoGenerator pieceGen2;
+    private RandomTetriminoGenerator pieceGen1;
+    private RandomTetriminoGenerator pieceGen2;
 
     public TetriminoGenerator(int p1, int p2, Space channel) {
         this.p1 = p1;
         this.p2 = p2;
         this.channel = channel;
         long seed = (new Random()).nextLong();
-        pieceGen1 = new RandomTetraminoGenerator(seed);
-        pieceGen2 = new RandomTetraminoGenerator(seed);
+        pieceGen1 = new RandomTetriminoGenerator(seed);
+        pieceGen2 = new RandomTetriminoGenerator(seed);
     }
 
     @Override

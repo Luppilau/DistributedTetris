@@ -1,6 +1,6 @@
 package com.Server;
 
-import com.Tetris.Net.ClientTetraminoGenerator;
+import com.Tetris.Net.ClientTetriminoGenerator;
 import org.jspace.RemoteSpace;
 
 import java.io.IOException;
@@ -30,8 +30,8 @@ public class ClientMock {
         game.put(ServerMessages.okMessage);
         System.out.println("Sent the messages");
 
-        ClientTetraminoGenerator player1Piece = new ClientTetraminoGenerator(game, p1ID);
-        ClientTetraminoGenerator player2Piece = new ClientTetraminoGenerator(game, p2ID);
+        ClientTetriminoGenerator player1Piece = new ClientTetriminoGenerator(game, p1ID);
+        ClientTetriminoGenerator player2Piece = new ClientTetriminoGenerator(game, p2ID);
 
         Thread handle1 = new Thread(player1Piece);
         Thread handle2 = new Thread(player2Piece);

@@ -1,16 +1,17 @@
-package com.Tetris.Model;
+package com.Tetris.Model.Generators;
 
 import java.util.Random;
-import com.Tetris.Model.Tetriminoes.*;
+import com.Tetris.Model.Tetriminos.*;
+import com.Tetris.Model.Tetriminos.FallingPieces.*;
 
-public class RandomTetraminoGenerator implements TetraminoGenerator {
+public class RandomTetriminoGenerator implements TetriminoGenerator {
     Random r;
 
-    public RandomTetraminoGenerator() {
+    public RandomTetriminoGenerator() {
         r = new Random();
     }
 
-    public RandomTetraminoGenerator(long seed) {
+    public RandomTetriminoGenerator(long seed) {
         r = new Random(seed);
     }
 

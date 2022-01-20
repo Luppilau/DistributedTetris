@@ -1,19 +1,23 @@
 package com.Tetris.Model;
 
+import com.Tetris.Controller.CustomEvent;
+import com.Tetris.Model.Tetriminos.FallingPiece;
+import com.Tetris.Model.Tetriminos.Pair;
+import com.Tetris.Model.Tetriminos.Rotation;
+import com.Tetris.Model.Tetriminos.Tetrimino;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.Server.ServerMessages;
-import com.Tetris.Net.ClientTetraminoGenerator;
-import com.Tetris.Net.UpdateKind;
-import com.Tetris.Net.Updates.GameOver;
-import com.Tetris.Net.Updates.LineClear;
-import com.Tetris.Net.Updates.LinesSent;
-import com.Tetris.Net.Updates.NextPiece;
-import com.Tetris.Net.Updates.PiecePlaced;
-import com.Tetris.Net.Updates.Swap;
+import com.Tetris.Net.ClientTetriminoGenerator;
+import com.Tetris.Net.Updates.UpdateKind;
+import com.Tetris.Net.Updates.UpdateDataTypes.LineClear;
+import com.Tetris.Net.Updates.UpdateDataTypes.LinesSent;
+import com.Tetris.Net.Updates.UpdateDataTypes.NextPiece;
+import com.Tetris.Net.Updates.UpdateDataTypes.PiecePlaced;
+import com.Tetris.Net.Updates.UpdateDataTypes.Swap;
 import com.Tetris.Net.Updates.UpdateData;
 
 import org.jspace.FormalField;
@@ -45,11 +49,11 @@ public class TetrisModel {
     private boolean hasSwapped = false;
     private Canvas canvas;
 
-    private ClientTetraminoGenerator generator;
+    private ClientTetriminoGenerator generator;
     private Thread generatorThread;
 
     public TetrisModel(Canvas canvas, RemoteSpace space, Space junkQueue, int playerID) {
-        generator = new ClientTetraminoGenerator(space, playerID);
+        generator = new ClientTetriminoGenerator(space, playerID);
         netSpace = space;
         this.playerID = playerID;
 
@@ -254,7 +258,7 @@ public class TetrisModel {
                 temp = nextPiece;
                 nextPiece = generator.nextPiece();
             }
-            current.rotation = Rotation.O;
+            current.setRotation(Rotation.O);
             swap = current;
             current = temp;
             hasSwapped = true;

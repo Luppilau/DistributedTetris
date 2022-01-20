@@ -1,4 +1,4 @@
-package com.Tetris.Model;
+package com.Tetris.Model.Tetriminos;
 
 public enum Rotation {
     O, // 0

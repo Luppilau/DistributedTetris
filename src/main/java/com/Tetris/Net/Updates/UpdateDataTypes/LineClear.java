@@ -1,4 +1,6 @@
-package com.Tetris.Net.Updates;
+package com.Tetris.Net.Updates.UpdateDataTypes;
+
+import com.Tetris.Net.Updates.UpdateData;
 
 public class LineClear extends UpdateData {
     public int newScore;

@@ -1,8 +1,10 @@
-package com.Tetris.Net.Updates;
+package com.Tetris.Net.Updates.UpdateDataTypes;
+
+import com.Tetris.Net.Updates.UpdateData;
 
 public class LinesSent extends UpdateData {
-    int amount;
-    int hole;
+    public int amount;
+    public int hole;
 
     public LinesSent(int amount, int hole) {
         this.amount = amount;

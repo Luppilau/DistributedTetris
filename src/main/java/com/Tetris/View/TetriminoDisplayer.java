@@ -1,8 +1,8 @@
 package com.Tetris.View;
 
-import com.Tetris.Model.FallingPiece;
-import com.Tetris.Model.Pair;
-import com.Tetris.Model.Tetrimino;
+import com.Tetris.Model.Tetriminos.FallingPiece;
+import com.Tetris.Model.Tetriminos.Pair;
+import com.Tetris.Model.Tetriminos.Tetrimino;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

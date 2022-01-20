@@ -2,8 +2,7 @@ package com.Tetris.View;
 
 import java.io.IOException;
 
-import com.Tetris.Model.CustomEvent;
-import com.Tetris.Model.TetrisInstance;
+import com.Tetris.Controller.CustomEvent;
 import com.Tetris.Model.TetrisModel;
 
 import javafx.fxml.FXMLLoader;

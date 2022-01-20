@@ -1,6 +1,6 @@
 package com.Tetris.Net;
 
-import com.Tetris.Model.Tetrimino;
+import com.Tetris.Model.Tetriminos.Tetrimino;
 import org.jspace.*;
 
 public class Message {

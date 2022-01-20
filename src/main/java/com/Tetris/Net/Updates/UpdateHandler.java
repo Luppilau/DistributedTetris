@@ -3,10 +3,10 @@ package com.Tetris.Net.Updates;
 import java.util.Random;
 
 import com.Server.ServerMessages;
-import com.Tetris.Model.TetrisInstance;
+import com.Tetris.Controller.TetrisInstance;
 import com.Tetris.Model.Opponent.OpponentInstance;
-import com.Tetris.Net.UpdateKind;
 
+import com.Tetris.Net.Updates.UpdateDataTypes.*;
 import org.jspace.RemoteSpace;
 import org.jspace.Space;
 

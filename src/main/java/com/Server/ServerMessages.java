@@ -1,6 +1,6 @@
 package com.Server;
 
-import com.Tetris.Net.UpdateKind;
+import com.Tetris.Net.Updates.UpdateKind;
 import com.Tetris.Net.Updates.UpdateData;
 
 import org.jspace.ActualField;

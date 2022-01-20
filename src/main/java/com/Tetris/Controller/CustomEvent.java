@@ -1,4 +1,4 @@
-package com.Tetris.Model;
+package com.Tetris.Controller;
 
 import javafx.event.Event;
 import javafx.event.EventType;

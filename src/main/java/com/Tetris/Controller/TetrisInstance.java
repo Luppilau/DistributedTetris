@@ -1,5 +1,6 @@
-package com.Tetris.Model;
+package com.Tetris.Controller;
 
+import com.Tetris.Model.TetrisModel;
 import com.Tetris.View.TetrisCanvas;
 
 import javafx.animation.AnimationTimer;

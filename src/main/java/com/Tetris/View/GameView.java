@@ -2,7 +2,7 @@ package com.Tetris.View;
 
 import java.io.IOException;
 
-import com.Tetris.Model.TetrisInstance;
+import com.Tetris.Controller.TetrisInstance;
 import com.Tetris.Model.TetrisModel;
 import com.Tetris.Model.Opponent.OpponentInstance;
 import com.Tetris.Model.Opponent.OpponentModel;

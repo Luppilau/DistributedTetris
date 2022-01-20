@@ -4,8 +4,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import com.Tetris.Model.Pair;
-import com.Tetris.Model.Tetrimino;
+import com.Tetris.Model.Tetriminos.Pair;
+import com.Tetris.Model.Tetriminos.Tetrimino;
 import com.Tetris.Model.TetrisModel;
 import com.Tetris.Model.Opponent.OpponentModel;
 

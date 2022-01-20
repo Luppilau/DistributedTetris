@@ -1,4 +1,4 @@
-package com.Tetris.Net;
+package com.Tetris.Net.Updates;
 
 public enum UpdateKind {
     LineClear,
