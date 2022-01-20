@@ -1,14 +1,14 @@
 package com.Tetris.Net;
 
 import com.Tetris.Model.FallingPiece;
-import com.Tetris.Model.PieceGenerator;
+import com.Tetris.Model.TetraminoGenerator;
 import com.Tetris.Model.Tetrimino;
 import org.jspace.ActualField;
 import org.jspace.RemoteSpace;
 import org.jspace.SequentialSpace;
 import org.jspace.Space;
 
-public class ClientPieceGenerator implements Runnable, PieceGenerator {
+public class ClientTetraminoGenerator implements Runnable, TetraminoGenerator {
     private static final int BUFFER_SIZE = 7;
 
     private RemoteSpace netSpace;
@@ -20,7 +20,7 @@ public class ClientPieceGenerator implements Runnable, PieceGenerator {
     private Tetrimino[] nextPack;
     private int currentTetrimino;
 
-    public ClientPieceGenerator(RemoteSpace netSpace, int playerID) {
+    public ClientTetraminoGenerator(RemoteSpace netSpace, int playerID) {
         this.netSpace = netSpace;
         this.playerID = playerID;
         internalSpace = new SequentialSpace();

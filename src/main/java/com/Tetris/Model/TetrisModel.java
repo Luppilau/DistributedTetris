@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.Server.ServerMessages;
-import com.Tetris.Net.ClientPieceGenerator;
+import com.Tetris.Net.ClientTetraminoGenerator;
 import com.Tetris.Net.UpdateKind;
 import com.Tetris.Net.Updates.GameOver;
 import com.Tetris.Net.Updates.LineClear;
@@ -45,11 +45,11 @@ public class TetrisModel {
     private boolean hasSwapped = false;
     private Canvas canvas;
 
-    private ClientPieceGenerator generator;
+    private ClientTetraminoGenerator generator;
     private Thread generatorThread;
 
     public TetrisModel(Canvas canvas, RemoteSpace space, Space junkQueue, int playerID) {
-        generator = new ClientPieceGenerator(space, playerID);
+        generator = new ClientTetraminoGenerator(space, playerID);
         netSpace = space;
         this.playerID = playerID;
 

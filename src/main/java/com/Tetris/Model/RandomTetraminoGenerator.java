@@ -3,14 +3,14 @@ package com.Tetris.Model;
 import java.util.Random;
 import com.Tetris.Model.Tetriminoes.*;
 
-public class RandomPieceGenerator implements PieceGenerator {
+public class RandomTetraminoGenerator implements TetraminoGenerator {
     Random r;
 
-    public RandomPieceGenerator() {
+    public RandomTetraminoGenerator() {
         r = new Random();
     }
 
-    public RandomPieceGenerator(long seed) {
+    public RandomTetraminoGenerator(long seed) {
         r = new Random(seed);
     }
 

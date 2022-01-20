@@ -1,12 +1,12 @@
 package com.Server;
 
-import com.Tetris.Net.ClientPieceGenerator;
+import com.Tetris.Net.ClientTetraminoGenerator;
 import org.jspace.RemoteSpace;
 
 import java.io.IOException;
 
 public class ClientMock {
-    //The default testing-ip address used throughout the project
+    // The default testing-ip address used throughout the project
     public static final String URI = "tcp://localhost:9090/";
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -30,8 +30,8 @@ public class ClientMock {
         game.put(ServerMessages.okMessage);
         System.out.println("Sent the messages");
 
-        ClientPieceGenerator player1Piece = new ClientPieceGenerator(game, p1ID);
-        ClientPieceGenerator player2Piece = new ClientPieceGenerator(game, p2ID);
+        ClientTetraminoGenerator player1Piece = new ClientTetraminoGenerator(game, p1ID);
+        ClientTetraminoGenerator player2Piece = new ClientTetraminoGenerator(game, p2ID);
 
         Thread handle1 = new Thread(player1Piece);
         Thread handle2 = new Thread(player2Piece);

@@ -1,5 +1,5 @@
 package com.Tetris.Model;
 
-public interface PieceGenerator {
+public interface TetraminoGenerator {
     public FallingPiece nextPiece();
 }
