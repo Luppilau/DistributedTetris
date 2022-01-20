@@ -16,6 +16,7 @@ public class TetrisCanvas extends Canvas {
 
     private static final Color backgroundColor = Color.valueOf("#000000");
     private static final Color outlineColor = Color.valueOf("#000000");
+    private static final Color junkColor = Color.valueOf("#FF0000");
 
     private GraphicsContext context;
 
@@ -58,6 +59,7 @@ public class TetrisCanvas extends Canvas {
             paintSquareWithBorder(sq.x, sq.y);
         }
 
+        drawIncomingJunk(game.getCountIncomingJunk());
     }
 
     public void renderOpponent(OpponentModel game) {
@@ -121,5 +123,14 @@ public class TetrisCanvas extends Canvas {
         context.setStroke(backgroundColor);
         paintSquareWithBorder(i - 1, clearedLine);
         paintSquareWithBorder(10 - i, clearedLine);
+    }
+
+    public void drawIncomingJunk(int amount) {
+        context.setFill(junkColor);
+        context.fillRect(
+                squareUnit * 10 - 5,
+                20 * squareUnit - amount * squareUnit,
+                5,
+                amount * squareUnit);
     }
 }

@@ -77,7 +77,6 @@ public class UpdateHandler implements Runnable {
                         break;
                     case LinesSent:
                         LinesSent data2 = (LinesSent) update[3];
-                        System.out.println("Got some lines for the oppoent");
                         opponentInstance.sendLines(data2.amount, data2.hole);
                         break;
 

@@ -6,14 +6,14 @@
 <?import javafx.scene.text.*?>
 
 
-<VBox stylesheets="@HomeLayout.css" xmlns:fx="http://javafx.com/fxml">
+<VBox stylesheets="@HomeLayout.css" xmlns:fx="http://javafx.com/fxml" spacing="5">
     <padding>
         <Insets top="100" right="100" bottom="100" left="100" />
     </padding>
 
     <HBox> 
         <children>
-            <TextField fx:id="field" prefWidth="200.0" text="localhost" />
+            <TextField fx:id="field" text="localhost" />
             <Button fx:id="button" text="Connect" />
         </children>
     </HBox>

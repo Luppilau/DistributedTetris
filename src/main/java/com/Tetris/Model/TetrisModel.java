@@ -3,6 +3,7 @@ package com.Tetris.Model;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.Server.ServerMessages;
 import com.Tetris.Net.ClientPieceGenerator;
@@ -71,18 +72,31 @@ public class TetrisModel {
         this.canvas = canvas;
     }
 
+    // Move the current falling piece one step down,
+    // If it collides with the current stack, lock it in and run line detection and
+    // if applicable
+    // score updates.
     public void tick() {
-        // Fall piece
+
+        // Take all junk from the junkQueue and update the junkIncoming variable.
 
         current.move(0, -1);
+        // If not colliding return early
         if (!current.colliding(matrix)) {
             return;
         }
+
+        // Else move up to previous position where the piece didn't collide
         current.move(0, 1);
+
+        // Then get the lines that need to be checked for line-clear
+        // relevantLines() maintains a Big -> Small sorting (this is important!)
         int[] relevantLines = current.relevantLines();
         lockPiece();
+        // Let the player swap in again
         hasSwapped = false;
 
+        // Run line detection
         int nLines = 0;
         lines: for (int y : relevantLines) {
             // Detect line clear
@@ -97,31 +111,23 @@ public class TetrisModel {
             nLines += 1;
         }
 
+        // Get junk updates and update model with it
+        emptyJunkQueue();
+
+        // If lines were cleared, send an update
         if (nLines > 0) {
-            sendLinesClearedUpdate(linesCleared.stream().mapToInt(i -> i).toArray());
+
+            // ArrayList<Integer> to int[]
+            sendLinesClearedUpdate(linesCleared.stream().mapToInt(i -> i).toArray()); // C
         }
 
-        // Receive all junk-updates
-
-        try {
-            Object s = junkQueue.getp(new FormalField(Integer.class), new FormalField(Integer.class));
-            while (s != null) {
-                Integer nextJunkAmt = (Integer) ((Object[]) s)[0];
-                Integer hole = (Integer) ((Object[]) s)[1];
-                System.out.println("Moving up! " + nextJunkAmt + " lines. hole at " + hole);
-                for (int i = 0; i < linesCleared.size(); i++) {
-                    linesCleared.set(i, linesCleared.get(i) + nextJunkAmt);
-                }
-                moveMatrixUp(nextJunkAmt, hole);
-                sendJunkUpdate(nextJunkAmt, hole);
-                s = junkQueue.getp(new FormalField(Integer.class), new FormalField(Integer.class));
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+        // update the number
         lines.set(lines.get() + nLines);
+        // update the points
         points.set(points.get() + calculateScore(nLines));
+
+        // Update the current level
+        // The formula is taken from https://tetris.wiki/Tetris_(NES,_Nintendo)
         if (level.getValue() >= 15 && lines.getValue() % 10 == 0) {
             level.set(level.get() + 1);
         } else if (lines.getValue() >= level.getValue() * 10 + 10
@@ -129,6 +135,45 @@ public class TetrisModel {
             level.set(level.get() + 1);
         }
 
+    }
+
+    private void emptyJunkQueue() {
+        try {
+            Object s = junkQueue.getp(new FormalField(Integer.class), new FormalField(Integer.class));
+            // Basic implementation of queryAllp as it isn't part of the jspace
+            // specification
+            while (s != null) {
+                Integer nextJunkAmt = (Integer) ((Object[]) s)[0];
+                Integer hole = (Integer) ((Object[]) s)[1];
+
+                // To not break the lines-clear animation, we need to update the "linesCleared"
+                // arraylist to account for the extra lines at the bottom
+                for (int i = 0; i < linesCleared.size(); i++) {
+                    linesCleared.set(i, linesCleared.get(i) + nextJunkAmt);
+                }
+                // Move the matrix up and send an update to the opponent to tell them that some
+                // junk lines were added to the screen
+                moveMatrixUp(nextJunkAmt, hole);
+                sendJunkUpdate(nextJunkAmt, hole);
+                s = junkQueue.getp(new FormalField(Integer.class), new FormalField(Integer.class));
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getCountIncomingJunk() {
+        int out = 0;
+        try {
+            List<Object[]> s = junkQueue.queryAll(new FormalField(Integer.class), new FormalField(Integer.class));
+            // Basic implementation of queryAllp as it isn't
+            for (Object[] junkUpdate : s) {
+                out += (Integer) junkUpdate[0];
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return out;
     }
 
     private void lockPiece() {

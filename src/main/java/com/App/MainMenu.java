@@ -35,25 +35,25 @@ public class MainMenu extends Scene {
         connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
             String ip = connectTextField.getText();
             String URI = "tcp://" + ip + ":9090/lobby?keep";
+            errorText.setText("Connecting...");
             try {
                 RemoteSpace lobby = new RemoteSpace(URI);
                 navigateToGame(lobby, ip);
             } catch (IOException e) {
                 // Try again!
                 errorText.setText("ERROR! Try again");
-                System.out.println("ERROR");
             }
         });
-        String ip = connectTextField.getText();
-        String URI = "tcp://" + ip + ":9090/lobby?keep";
-        try {
-            RemoteSpace lobby = new RemoteSpace(URI);
-            navigateToGame(lobby, ip);
-        } catch (IOException e) {
-            // Try again!
-            errorText.setText("ERROR! Try again");
-            System.out.println("ERROR");
-        }
+        // String ip = connectTextField.getText();
+        // String URI = "tcp://" + ip + ":9090/lobby?keep";
+        // try {
+        // RemoteSpace lobby = new RemoteSpace(URI);
+        // navigateToGame(lobby, ip);
+        // } catch (IOException e) {
+        // // Try again!
+        // errorText.setText("ERROR! Try again");
+        // System.out.println("ERROR");
+        // }
     }
 
     public void navigateToMainMenu() {

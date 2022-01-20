@@ -3,9 +3,10 @@
      * The main color palette from which the rest of the colors are derived.   *
      **************************************************************************/
     /* -fx-background: #2f4f4f; */
-    -fx-background: #000000;
+    -fx-background: #E5E5E5;
+    -fx-background-image: url('mainmenu.png');
 }
 
 .error-text{
-    -fx-fill: white;
+    -fx-fill: black;
 }
