@@ -4,41 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="897a77d1-12a5-4494-af1b-af09b23ce3b2" name="Changes" comment="Instance commenting">
+    <list default="true" id="897a77d1-12a5-4494-af1b-af09b23ce3b2" name="Changes" comment="Major refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Server/GameThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Server/GameThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Server/ServerMessages.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Server/ServerMessages.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/CustomEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Controller/CustomEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/FallingPiece.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Opponent/OpponentInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Opponent/OpponentInstance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Opponent/OpponentModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Opponent/OpponentModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Pair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminos/Pair.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/RandomTetraminoGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Generators/RandomTetraminoGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Rotation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminos/Rotation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/TetraminoGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Generators/TetraminoGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetrimino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminos/Tetrimino.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminoes/I.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminos/FallingPieces/I.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminoes/J.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminos/FallingPieces/J.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminoes/L.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminos/FallingPieces/L.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminoes/O.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminos/FallingPieces/O.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminoes/S.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminos/FallingPieces/S.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminoes/T.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminos/FallingPieces/T.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminoes/Z.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/Tetriminos/FallingPieces/Z.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/TetrisInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Controller/TetrisInstance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/TetrisModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Model/TetrisModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/ClientTetraminoGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/ClientTetraminoGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/UpdateKind.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/Updates/UpdateKind.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/Updates/LinesSent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/Updates/LinesSent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/Updates/NextPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/Updates/NextPiece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/Updates/PiecePlaced.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/Updates/PiecePlaced.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/Updates/Swap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/Updates/Swap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/Updates/UpdateHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/Net/Updates/UpdateHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/View/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/View/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/View/TetriminoDisplayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/View/TetriminoDisplayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/View/TetrisCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/View/TetrisCanvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Tetris/View/TetrisScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Tetris/View/TetrisScene.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/App/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/App/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/App/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/App/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/HomeLayout.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/HomeLayout.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +55,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
   </component>
-  <component name="RunManager" selected="Application.ClientMock">
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.App.App" />
       <module name="DistributedTetris" />
@@ -167,7 +137,7 @@
     </configuration>
     <configuration name="test" type="Multirun" separateTabs="false" reuseTabsWithFailures="false" startOneByOne="true" markFailedProcess="true" hideSuccessProcess="false" delayTime="0.0">
       <runConfiguration name="Server" type="Application" />
-      <runConfiguration name="ClientMock" type="Application" />
+      <runConfiguration name="App" type="Application" />
       <method v="2" />
     </configuration>
     <list>
@@ -181,9 +151,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ClientMock" />
-        <item itemvalue="Application.Server" />
         <item itemvalue="Application.App" />
+        <item itemvalue="Application.Server" />
+        <item itemvalue="Application.ClientMock" />
         <item itemvalue="Application.RemoteHelloWorld" />
         <item itemvalue="JAR Application.DistributedTetris-1.0-SNAPSHOT-jar-with-dependencies.jar" />
       </list>
@@ -261,7 +231,14 @@
       <option name="project" value="LOCAL" />
       <updated>1642674775176</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Major refactor">
+      <created>1642683522981</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1642683522981</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -282,13 +259,17 @@
     <MESSAGE value="small details" />
     <MESSAGE value="Server commenting" />
     <MESSAGE value="Instance commenting" />
-    <option name="LAST_COMMIT_MESSAGE" value="Instance commenting" />
+    <MESSAGE value="Major refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Major refactor" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/DistributedTetris$App.ic" NAME="App Coverage Results" MODIFIED="1642683568192" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.App.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/DistributedTetris$ClientMock.ic" NAME="ClientMock Coverage Results" MODIFIED="1642682773858" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.Server.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/DistributedTetris$Server.ic" NAME="Server Coverage Results" MODIFIED="1642423961351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/DistributedTetris$Server.ic" NAME="Server Coverage Results" MODIFIED="1642683563993" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.Server.*</FILTER>
     </SUITE>
   </component>

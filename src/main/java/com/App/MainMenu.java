@@ -25,8 +25,9 @@ public class MainMenu extends Scene {
     Object[] sessionDetails;
 
     public MainMenu(Parent root, Stage stage) {
-        super(root);
+        super(root,450,250);
         this.stage = stage;
+
 
         TextField connectTextField = (TextField) root.lookup("#field");
         Button connectButton = (Button) root.lookup("#button");
